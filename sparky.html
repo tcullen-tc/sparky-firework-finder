@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sparky Firework Finder | Get Your Shopping List!</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#0b1120; color:#e2e8f0; font-family:system-ui, 'Segoe UI', Arial, sans-serif; padding:16px; min-height:100vh; }
+.card { max-width:800px; margin:0 auto; background:#1e293b; border-radius:2rem; padding:24px 20px 32px; box-shadow:0 25px 45px -12px rgba(0,0,0,0.5); }
+h1 { color:#facc15; font-size:1.9rem; text-align:center; margin-bottom:12px; }
+h2 { font-size:1.6rem; margin:16px 0 20px; }
+h3 { font-size:1.3rem; margin:20px 0 12px; color:#facc15; border-left:4px solid #facc15; padding-left:14px; }
+h4 { font-size:1.1rem; margin:15px 0 8px; color:#facc15; }
+button { width:100%; padding:14px 16px; margin-top:12px; border:none; border-radius:60px; font-size:1rem; font-weight:600; cursor:pointer; background:#334155; color:#f1f5f9; transition:all 0.2s; font-family:inherit; }
+button:hover { background:#475569; transform:scale(0.98); }
+.quiz-btn { background:#facc15; color:#0f172a; font-weight:700; }
+.quiz-btn:hover { background:#ffdb4d; }
+.result-box { background:#0f172a; border-radius:1.5rem; padding:20px; margin:24px 0; text-align:left; }
+.safety-card { background:#2d1f1f; border-left:5px solid #ef4444; padding:14px 18px; border-radius:1rem; margin:20px 0; font-weight:500; }
+.pocket-change-card { background:linear-gradient(135deg, #1e3a2f, #0f2c22); border:2px solid #facc15; padding:18px; border-radius:1.5rem; margin:20px 0; text-align:center; }
+.progress-container { background:#334155; border-radius:40px; height:10px; margin-bottom:20px; overflow:hidden; }
+.progress-fill { background:#facc15; width:0%; height:100%; border-radius:40px; transition:width 0.25s ease; }
+.tip-banner { background:#0f212e; border-radius:1rem; padding:12px 16px; margin:16px 0 0; font-size:0.9rem; color:#a5f3fc; text-align:center; border:1px solid #facc1540; }
+.action-buttons { display:flex; gap:12px; flex-wrap:wrap; margin-top:20px; }
+.action-buttons button { flex:1; background:#334155; }
+.back-button { background:#475569; margin-top:8px; }
+.small { color:#94a3b8; font-size:0.8rem; margin-top:16px; text-align:center; }
+.stand-info { background:#facc15; color:#0f172a; padding:16px; border-radius:1.2rem; text-align:center; font-weight:bold; margin-top:24px; }
+.shopping-list { background:#1a2332; border-radius:1rem; padding:16px; margin:12px 0; border-left:3px solid #facc15; }
+.shopping-list li { margin:8px 0; list-style-type: "🎆 "; padding-left:8px; }
+ul { list-style-position:inside; }
+li { margin:10px 0; }
+.salesman-humor { background:#2a1f3a; border-left:5px solid #facc15; padding:14px 18px; border-radius:1rem; margin:16px 0; font-style:italic; color:#d4b8ff; }
+@media (max-width:550px) { .card { padding:18px; } h1 { font-size:1.6rem; } h2 { font-size:1.3rem; } button { padding:12px; font-size:0.9rem; } }
+</style>
+</head>
+<body>
+<div class="card" id="appCard">
+    <h1>🎆 Sparky Firework Finder</h1>
+    <div id="content">
+        <p style="margin:16px 0;">Not sure what fireworks to buy?</p>
+        <p>Answer a few quick questions and get a <strong>complete shopping list</strong> of exactly what to buy! ✨</p>
+        <button class="quiz-btn" onclick="startQuiz()">🔥 Start My Shopping List 🔥</button>
+        <div class="pocket-change-card" style="margin-top:24px;">
+            <h3>🪙 ONLY GOT A FEW BUCKS? 🪙</h3>
+            <p style="margin:8px 0;"><strong>$5 - $10 budget?</strong> You can still have a blast!</p>
+            <button class="quiz-btn" onclick="showPocketChangeGuide()" style="background:#facc15; margin-top:10px;">💥 Show Me $5-$10 Fireworks Guide 💥</button>
+        </div>
+        <div class="tip-banner">✨ Did you know? A simple sparkler burns at 2000°F — but it won't rock the neighborhood! We'll match you to the right boom (or quiet sparkle).</div>
+    </div>
+</div>
+
+<script>
+// ============================================
+// PERSONALITIES
+// ============================================
+const personalities = {
+    family: { 
+        name:"Neighborhood Favorite", 
+        emoji:"😇",
+        description:"You enjoy fireworks that bring smiles and memories without turning the neighborhood Facebook page into a debate."
+    },
+    color: { 
+        name:"Color Chaser", 
+        emoji:"🎇",
+        description:"You care more about beautiful colors than raw noise. Every firework should look like a painting."
+    },
+    boom: { 
+        name:"Boom Seeker", 
+        emoji:"💥",
+        description:"You believe fireworks should be experienced with your entire rib cage."
+    },
+    finale: { 
+        name:"Finale Master", 
+        emoji:"👑",
+        description:"You're building toward a finish that people will remember long after the smoke clears."
+    },
+    sky: { 
+        name:"Sky Commander", 
+        emoji:"🚀",
+        description:"You like a balanced show with lots happening overhead."
+    },
+    legend: { 
+        name:"Backyard Legend", 
+        emoji:"🧨",
+        description:"You're trying to put on the show people compare every future show against."
+    },
+    picasso: { 
+        name:"Pyro Artist", 
+        emoji:"🎨",
+        description:"You appreciate beauty, timing, color, and creativity."
+    },
+    hollywood: { 
+        name:"Show Producer", 
+        emoji:"🎬",
+        description:"You think fireworks should have pacing, drama, and a memorable climax."
+    },
+    professor: { 
+        name:"Pyro Professor", 
+        emoji:"🔥",
+        description:"You appreciate variety and know that a good show isn't just noise."
+    },
+    sweetTea: { 
+        name:"Adventurer", 
+        emoji:"🤪",
+        description:"You checked every exciting answer and Sparky is mildly concerned."
+    },
+    chaos: { 
+        name:"Captain Chaos", 
+        emoji:"🏴‍☠️",
+        description:"You selected maximum enthusiasm at nearly every opportunity."
+    },
+    freedom: { 
+        name:"Freedom Amplifier", 
+        emoji:"🇺🇸",
+        description:"You believe fireworks are an important part of celebrating Independence Day."
+    }
+};
+
+// ============================================
+// SHOPPING LISTS BY BUDGET & AGE GROUP
+// ============================================
+function getShoppingList(budgetKey, audienceKey) {
+    // Determine age group from audience
+    let ageGroup = "adult";
+    if (audienceKey === "kids" || audienceKey === "dog") ageGroup = "kids";
+    else if (audienceKey === "family") ageGroup = "family";
+    else if (audienceKey === "bbq") ageGroup = "party";
+    else if (audienceKey === "adults") ageGroup = "adult";
+
+    // Determine budget tier
+    let tier = "small";
+    if (budgetKey === "under50") tier = "small";
+    else if (budgetKey === "50to100") tier = "medium";
+    else if (budgetKey === "100to200") tier = "large";
+    else if (budgetKey === "200to500") tier = "premium";
+    else if (budgetKey === "space") tier = "ultimate";
+
+    // Shopping lists by age group and tier
+    const lists = {
+        kids: {
+            small: [
+                { name: "Sparkler Variety Pack", description: "Colorful sparklers perfect for little hands" },
+                { name: "Snap Pop Mega Pack", description: "Hours of popping fun on the sidewalk" },
+                { name: "Smoke Bomb Assortment", description: "Colorful smoke clouds for daytime fun" },
+                { name: "Mini Fountain Collection", description: "Small ground fountains with gentle colors" }
+            ],
+            medium: [
+                { name: "Kids Party Assortment", description: "Curated collection of kid-safe favorites" },
+                { name: "Colorful Fountain Collection", description: "Multiple fountains with different colors" },
+                { name: "Sparkler & Smoke Mega Pack", description: "Everything for daytime fun" },
+                { name: "Mini Aerial Cakes", description: "Gentle aerial effects perfect for young ones" },
+                { name: "Family Fun Finale Cake", description: "Low-noise finale that everyone enjoys" }
+            ],
+            large: [
+                { name: "Ultimate Kids Show Package", description: "Complete kid-friendly show experience" },
+                { name: "Large Fountain Assortment", description: "Variety of fountains for a longer show" },
+                { name: "Colorful Aerial Collection", description: "Kid-safe aerial effects" },
+                { name: "Sparkler Celebration Pack", description: "Enough sparklers for everyone" },
+                { name: "Family Grand Finale", description: "Memorable ending without the boom" }
+            ],
+            premium: [
+                { name: "Deluxe Kids Show Package", description: "Premium kid-friendly show experience" },
+                { name: "Ultimate Fountain Collection", description: "Premium fountains for maximum color" },
+                { name: "Colorful Aerial Mega Pack", description: "Extensive kid-safe aerial collection" },
+                { name: "Sparkler & Glow Mega Bundle", description: "Everything for a magical night" },
+                { name: "Kids Grand Finale Collection", description: "Multiple finale cakes for a big ending" }
+            ],
+            ultimate: [
+                { name: "Legendary Kids Show Package", description: "The ultimate kid-friendly experience" },
+                { name: "Premium Fountain Mega Pack", description: "Professional-grade kid-safe fountains" },
+                { name: "Ultimate Aerial Collection", description: "The best kid-safe aerial effects" },
+                { name: "Sparkler & Light Show Bundle", description: "Complete lighting experience" },
+                { name: "Kids Epic Finale Collection", description: "Legendary ending for young ones" }
+            ]
+        },
+        family: {
+            small: [
+                { name: "Family Fountain Assortment", description: "Variety of fountains everyone will enjoy" },
+                { name: "Sparkler Variety Pack", description: "Long-lasting sparklers in multiple colors" },
+                { name: "Smoke Bomb Collection", description: "Colorful smoke clouds for daytime fun" },
+                { name: "Snap Pop Mega Pack", description: "Fun poppers for kids and kids at heart" }
+            ],
+            medium: [
+                { name: "Family Show Assortment", description: "Curated mix for the whole family" },
+                { name: "Colorful Fountain Collection", description: "Multiple fountains with different effects" },
+                { name: "Sparkler & Smoke Mega Pack", description: "Everything for a balanced show" },
+                { name: "Medium Aerial Cakes", description: "Impressive but family-friendly aerial effects" },
+                { name: "Family Finale Cake", description: "Satisfying ending everyone will enjoy" }
+            ],
+            large: [
+                { name: "Ultimate Family Show Package", description: "Complete show for the whole family" },
+                { name: "Large Fountain Collection", description: "Premium fountains for a longer show" },
+                { name: "Family Aerial Collection", description: "Balanced aerial effects for all ages" },
+                { name: "Sparkler Celebration Pack", description: "Enough sparklers for the whole crew" },
+                { name: "Grand Family Finale", description: "Impressive ending without being overwhelming" }
+            ],
+            premium: [
+                { name: "Deluxe Family Show Package", description: "Premium family show experience" },
+                { name: "Ultimate Fountain Collection", description: "Professional-grade family fountains" },
+                { name: "Premium Family Aerial Pack", description: "High-quality family-friendly aerial effects" },
+                { name: "Sparkler & Glow Mega Bundle", description: "Complete family lighting package" },
+                { name: "Family Grand Finale Collection", description: "Multiple finale cakes for a big ending" }
+            ],
+            ultimate: [
+                { name: "Legendary Family Show Package", description: "The ultimate family experience" },
+                { name: "Premium Fountain Mega Pack", description: "Professional-grade fountains" },
+                { name: "Ultimate Family Aerial Collection", description: "The best family aerial effects" },
+                { name: "Complete Family Lighting Bundle", description: "Everything for a memorable night" },
+                { name: "Family Epic Finale Collection", description: "Legendary ending for the whole family" }
+            ]
+        },
+        party: {
+            small: [
+                { name: "Black Cat Cracker Pack", description: "Classic popping fun for the crowd" },
+                { name: "Mini Roman Candles", description: "Small aerial pops to get started" },
+                { name: "Crackling Ball Variety", description: "Fun ground effects everyone will enjoy" },
+                { name: "Mini Repeater", description: "Small but exciting repeater" }
+            ],
+            medium: [
+                { name: "Party Assortment Box", description: "Curated crowd favorites" },
+                { name: "Aerial Cake Collection", description: "Multiple aerial cakes for variety" },
+                { name: "Repeater Variety Pack", description: "Different repeater styles" },
+                { name: "Whistling & Crackling Bundle", description: "Noise and fun combined" },
+                { name: "Medium Finale Cake", description: "Impressive ending for the party" }
+            ],
+            large: [
+                { name: "Ultimate Party Show Package", description: "Complete show for a great party" },
+                { name: "Artillery Shell Collection", description: "Big aerial booms for the crowd" },
+                { name: "Premium Aerial Assortment", description: "High-quality aerial effects" },
+                { name: "Grand Finale Cake", description: "Big ending the crowd will love" },
+                { name: "Repeater Variety Bundle", description: "Different repeaters for variety" }
+            ],
+            premium: [
+                { name: "Deluxe Party Show Package", description: "Premium party show experience" },
+                { name: "Artillery Shell Mega Kit", description: "Professional-grade aerial booms" },
+                { name: "Premium Aerial Collection", description: "Top-tier aerial effects" },
+                { name: "Grand Finale Collection", description: "Multiple finale cakes for a big ending" },
+                { name: "Professional Repeater Bundle", description: "Professional-grade repeaters" }
+            ],
+            ultimate: [
+                { name: "Legendary Party Show Package", description: "The ultimate party experience" },
+                { name: "Ultimate Artillery Shell Kit", description: "The biggest, best shells available" },
+                { name: "Premium Aerial Mega Pack", description: "Extensive premium aerial collection" },
+                { name: "Epic Finale Collection", description: "Legendary ending for the party" },
+                { name: "Ultimate Repeater Bundle", description: "The best repeaters available" }
+            ]
+        },
+        adult: {
+            small: [
+                { name: "Black Cat Cracker Pack", description: "Classic celebration crackers" },
+                { name: "Artillery Shell Starter Kit", description: "Big booms in a small package" },
+                { name: "Aerial Cake Selection", description: "Colorful aerial displays" },
+                { name: "Whistling Repeater", description: "Exciting whistle effects" }
+            ],
+            medium: [
+                { name: "Adult Assortment Box", description: "Curated favorites for adults" },
+                { name: "Artillery Shell Collection", description: "Big aerial booms" },
+                { name: "Aerial Cake Variety Pack", description: "Multiple cakes for a longer show" },
+                { name: "Grand Finale Cake", description: "Impressive ending" },
+                { name: "Repeater Variety Bundle", description: "Different repeater styles" }
+            ],
+            large: [
+                { name: "Ultimate Adult Show Package", description: "Complete show for adults" },
+                { name: "Artillery Shell Mega Kit", description: "Premium aerial booms" },
+                { name: "Premium Aerial Assortment", description: "High-quality aerial effects" },
+                { name: "Grand Finale Collection", description: "Multiple finale cakes" },
+                { name: "Professional Repeater Bundle", description: "Professional-grade effects" }
+            ],
+            premium: [
+                { name: "Deluxe Adult Show Package", description: "Premium adult show experience" },
+                { name: "Artillery Shell Pro Kit", description: "Professional-grade aerial booms" },
+                { name: "Premium Aerial Mega Pack", description: "Extensive premium aerial collection" },
+                { name: "Epic Finale Collection", description: "Multiple epic finale cakes" },
+                { name: "Ultimate Repeater Bundle", description: "Top-tier repeaters" }
+            ],
+            ultimate: [
+                { name: "Legendary Adult Show Package", description: "The ultimate adult experience" },
+                { name: "Ultimate Artillery Shell Kit", description: "The biggest, most powerful shells" },
+                { name: "Premium Aerial Ultimate Pack", description: "The best aerial effects available" },
+                { name: "Legendary Finale Collection", description: "Unforgettable ending" },
+                { name: "Ultimate Professional Bundle", description: "Everything for a legendary show" }
+            ]
+        }
+    };
+
+    return lists[ageGroup]?.[tier] || lists.adult.small;
+}
+
+// ============================================
+// SALESMAN JOKES (Random)
+// ============================================
+const salesmanJokes = [
+    "If you get the older guy with glasses, speak up - he's been testing fireworks too close for 40 years! His hearing is... WHAT DID YOU SAY?!",
+    "If you get the older guy with glasses, move fast - he takes a bathroom break every 15 minutes and he WILL abandon a transaction mid-sentence!",
+    "If you get the older guy with glasses, don't mention the 70s - he was there and he'll tell you EVERYTHING about it. With photos.",
+    "If you get the older guy with glasses, just point at what you want - his hearing is gone but he can still spot a firework deal from 50 yards.",
+    "If you get the older guy with glasses, prepare for a story. He's told the same one about the 'Great Fountain of '89' to 47 people today.",
+    "If you get the older guy with glasses, don't ask about his back - he'll show you his surgery scar. Every. Single. Time.",
+    "If you get the older guy with glasses, check your receipt - he'll 'accidentally' add a few extra sparklers because 'you looked like you needed them.'",
+    "If you get the older guy with glasses, be patient - he's telling everyone about his grandkids' firework show last year."
+];
+
+// ============================================
+// SAFETY TIPS (Random)
+// ============================================
+const safetyTips = [
+    "💧 Keep a bucket of water or hose nearby at all times!",
+    "👓 Protect your eyes - wear safety glasses when lighting!",
+    "🚫 Never relight a dud - wait 20 minutes then soak it in water.",
+    "🧑‍🤝‍🧑 Designate a responsible adult as the 'Pyro in Charge'.",
+    "🐾 Keep pets indoors - they don't appreciate the boom like you do!",
+    "🔥 Light one firework at a time, then move back quickly.",
+    "🗑️ Soak used fireworks in water before throwing them away.",
+    "🚗 Keep fireworks away from cars and flammable materials!",
+    "👨‍👩‍👧‍👦 Always supervise children around fireworks!",
+    "📱 Keep your phone handy - but not while lighting fireworks!"
+];
+
+// ============================================
+// QUIZ QUESTIONS
+// ============================================
+const questions = [
+{ 
+    key:"loudness", 
+    text:"How loud do you want tonight to be?", 
+    options:[
+        { label:"😴 Let's not wake the baby.", scores:{ family:6,color:1,boom:0,Finale:0,sky:0,legend:0,picasso:1,hollywood:0,professor:1,sweetTea:0,chaos:0,freedom:1 } },
+        { label:"😊 A few nice pops.", scores:{ family:5,color:1,boom:1,Finale:0,sky:1,legend:0,picasso:1,hollywood:0,professor:1,sweetTea:0,chaos:0,freedom:1 } },
+        { label:"😎 I want the neighbors to notice.", scores:{ family:1,color:1,boom:3,Finale:2,sky:2,legend:3,picasso:0,hollywood:1,professor:1,sweetTea:2,chaos:2,freedom:3 } },
+        { label:"💥 I want the neighbors checking their security cameras.", scores:{ family:0,color:0,boom:5,Finale:3,sky:2,legend:4,picasso:0,hollywood:1,professor:1,sweetTea:3,chaos:5,freedom:4 } },
+        { label:"🚀 I want nearby seismographs to become suspicious.", scores:{ family:0,color:0,boom:6,Finale:4,sky:2,legend:5,picasso:0,hollywood:2,professor:0,sweetTea:4,chaos:7,freedom:5 } }
+    ]
+},
+{ 
+    key:"effect", 
+    text:"What do you enjoy watching most?", 
+    options:[
+        { label:"🌈 Big colorful bursts", scores:{ family:1,color:5,boom:1,Finale:1,sky:3,legend:1,picasso:5,hollywood:2,professor:2,sweetTea:1,chaos:0,freedom:2 } },
+        { label:"✨ Glitter and sparkle", scores:{ family:2,color:5,boom:0,Finale:1,sky:2,legend:0,picasso:6,hollywood:2,professor:2,sweetTea:1,chaos:0,freedom:1 } },
+        { label:"🔥 Crackling effects", scores:{ family:2,color:2,boom:2,Finale:2,sky:2,legend:1,picasso:2,hollywood:1,professor:5,sweetTea:2,chaos:1,freedom:2 } },
+        { label:"🎺 Whistles and screamers", scores:{ family:0,color:1,boom:3,Finale:2,sky:2,legend:2,picasso:0,hollywood:1,professor:2,sweetTea:3,chaos:3,freedom:2 } },
+        { label:"💥 Rapid-fire booms", scores:{ family:0,color:0,boom:5,Finale:3,sky:2,legend:3,picasso:0,hollywood:1,professor:1,sweetTea:4,chaos:5,freedom:3 } },
+        { label:"🤯 Everything. Give me everything.", scores:{ family:0,color:3,boom:4,Finale:5,sky:4,legend:4,picasso:3,hollywood:4,professor:4,sweetTea:7,chaos:5,freedom:4 } }
+    ]
+},
+{ 
+    key:"audience", 
+    text:"Who is watching tonight?", 
+    options:[
+        { label:"👶 Kids", scores:{ family:6,color:2,boom:0,Finale:0,sky:0,legend:0,picasso:1,hollywood:0,professor:1,sweetTea:0,chaos:0,freedom:1 }, audienceKey:"kids" },
+        { label:"👨‍👩‍👧‍👦 Family", scores:{ family:4,color:2,boom:1,Finale:1,sky:1,legend:1,picasso:1,hollywood:1,professor:1,sweetTea:0,chaos:0,freedom:2 }, audienceKey:"family" },
+        { label:"🍔 Backyard BBQ crowd", scores:{ family:2,color:2,boom:2,Finale:2,sky:2,legend:3,picasso:1,hollywood:2,professor:2,sweetTea:2,chaos:1,freedom:3 }, audienceKey:"bbq" },
+        { label:"😎 Adults who came for explosions", scores:{ family:0,color:0,boom:5,Finale:3,sky:2,legend:3,picasso:0,hollywood:1,professor:1,sweetTea:3,chaos:5,freedom:3 }, audienceKey:"adults" },
+        { label:"🐕 My dog is already unhappy.", scores:{ family:4,color:0,boom:0,Finale:0,sky:0,legend:0,picasso:0,hollywood:0,professor:0,sweetTea:1,chaos:0,freedom:0 }, audienceKey:"dog" }
+    ]
+},
+{ 
+    key:"goal", 
+    text:"What is your goal tonight?", 
+    options:[
+        { label:"😊 Make memories", scores:{ family:5,color:2,boom:0,Finale:1,sky:1,legend:1,picasso:1,hollywood:1,professor:1,sweetTea:0,chaos:0,freedom:3 } },
+        { label:"🎇 Put on a beautiful show", scores:{ family:1,color:5,boom:0,Finale:2,sky:3,legend:1,picasso:6,hollywood:4,professor:3,sweetTea:0,chaos:0,freedom:2 } },
+        { label:"💥 Win the neighborhood", scores:{ family:0,color:1,boom:5,Finale:4,sky:2,legend:6,picasso:0,hollywood:3,professor:1,sweetTea:4,chaos:5,freedom:4 } },
+        { label:"🏆 Become a local legend", scores:{ family:0,color:1,boom:3,Finale:5,sky:2,legend:7,picasso:0,hollywood:4,professor:1,sweetTea:4,chaos:4,freedom:4 } },
+        { label:"👑 Achieve family folklore status", scores:{ family:0,color:1,boom:2,Finale:6,sky:2,legend:6,picasso:0,hollywood:5,professor:1,sweetTea:3,chaos:3,freedom:4 } }
+    ]
+},
+{ 
+    key:"budget", 
+    text:"What budget range are you thinking?", 
+    options:[
+        { label:"💵 Under $50", scores:{ family:4,color:1,boom:0,Finale:0,sky:0,legend:0,picasso:1,hollywood:0,professor:1,sweetTea:0,chaos:0,freedom:1 }, budgetKey:"under50" },
+        { label:"💵💵 $50-$100", scores:{ family:3,color:2,boom:1,Finale:1,sky:1,legend:1,picasso:1,hollywood:1,professor:2,sweetTea:0,chaos:0,freedom:2 }, budgetKey:"50to100" },
+        { label:"💵💵💵 $100-$200", scores:{ family:1,color:2,boom:2,Finale:2,sky:2,legend:2,picasso:2,hollywood:2,professor:2,sweetTea:1,chaos:1,freedom:2 }, budgetKey:"100to200" },
+        { label:"💵💵💵💵 $200-$500", scores:{ family:0,color:1,boom:3,Finale:4,sky:3,legend:4,picasso:1,hollywood:4,professor:2,sweetTea:3,chaos:3,freedom:3 }, budgetKey:"200to500" },
+        { label:"🎖️ I'm funding my own space program.", scores:{ family:0,color:1,boom:5,Finale:6,sky:3,legend:5,picasso:1,hollywood:5,professor:1,sweetTea:5,chaos:6,freedom:5 }, budgetKey:"space" }
+    ]
+},
+{ 
+    key:"experience", 
+    text:"How experienced are you with fireworks?", 
+    options:[
+        { label:"🧍 First timer", scores:{ family:4,color:2,boom:0,Finale:0,sky:1,legend:0,picasso:1,hollywood:0,professor:0,sweetTea:0,chaos:0,freedom:1 } },
+        { label:"🙂 Casual user", scores:{ family:3,color:2,boom:1,Finale:1,sky:2,legend:1,picasso:1,hollywood:1,professor:1,sweetTea:0,chaos:0,freedom:2 } },
+        { label:"😎 Experienced", scores:{ family:1,color:2,boom:2,Finale:2,sky:3,legend:2,picasso:2,hollywood:2,professor:3,sweetTea:1,chaos:1,freedom:2 } },
+        { label:"🏡 Backyard veteran", scores:{ family:0,color:1,boom:3,Finale:3,sky:3,legend:4,picasso:1,hollywood:3,professor:4,sweetTea:2,chaos:2,freedom:3 } },
+        { label:"📛 The neighbors know my name", scores:{ family:0,color:0,boom:5,Finale:4,sky:2,legend:5,picasso:0,hollywood:2,professor:2,sweetTea:4,chaos:6,freedom:4 } }
+    ]
+},
+{ 
+    key:"length", 
+    text:"How long should the show last?", 
+    options:[
+        { label:"⏱️ About 5 minutes", scores:{ family:3,color:1,boom:0,Finale:0,sky:1,legend:0,picasso:1,hollywood:0,professor:1,sweetTea:0,chaos:0,freedom:1 } },
+        { label:"⌛ About 10 minutes", scores:{ family:2,color:2,boom:1,Finale:1,sky:2,legend:1,picasso:1,hollywood:1,professor:2,sweetTea:0,chaos:0,freedom:2 } },
+        { label:"🎆 About 20 minutes", scores:{ family:1,color:2,boom:2,Finale:2,sky:3,legend:3,picasso:2,hollywood:3,professor:3,sweetTea:1,chaos:1,freedom:2 } },
+        { label:"🏆 About 30 minutes", scores:{ family:0,color:1,boom:3,Finale:4,sky:3,legend:4,picasso:1,hollywood:4,professor:2,sweetTea:3,chaos:3,freedom:3 } },
+        { label:"🍿 Until people start checking their watches", scores:{ family:0,color:1,boom:4,Finale:5,sky:2,legend:5,picasso:1,hollywood:4,professor:2,sweetTea:5,chaos:4,freedom:3 } }
+    ]
+},
+{ 
+    key:"crowd", 
+    text:"How many people are watching?", 
+    options:[
+        { label:"👫 Just us", scores:{ family:3,color:2,boom:0,Finale:0,sky:1,legend:0,picasso:1,hollywood:0,professor:1,sweetTea:0,chaos:0,freedom:1 } },
+        { label:"👨‍👩‍👧 10-20 people", scores:{ family:3,color:2,boom:1,Finale:1,sky:2,legend:1,picasso:1,hollywood:1,professor:1,sweetTea:0,chaos:0,freedom:2 } },
+        { label:"🎉 20-50 people", scores:{ family:1,color:2,boom:2,Finale:3,sky:3,legend:3,picasso:2,hollywood:3,professor:2,sweetTea:1,chaos:1,freedom:3 } },
+        { label:"📣 50+ people", scores:{ family:0,color:1,boom:3,Finale:4,sky:3,legend:4,picasso:1,hollywood:4,professor:2,sweetTea:3,chaos:3,freedom:4 } },
+        { label:"🗺️ Half the county", scores:{ family:0,color:1,boom:5,Finale:5,sky:3,legend:5,picasso:1,hollywood:5,professor:1,sweetTea:5,chaos:6,freedom:5 } }
+    ]
+},
+{ 
+    key:"ending", 
+    text:"What kind of ending do you want?", 
+    options:[
+        { label:"😊 A nice ending", scores:{ family:4,color:2,boom:0,Finale:1,sky:1,legend:0,picasso:1,hollywood:1,professor:1,sweetTea:0,chaos:0,freedom:1 } },
+        { label:"🎆 A big ending", scores:{ family:1,color:2,boom:2,Finale:4,sky:2,legend:3,picasso:1,hollywood:3,professor:1,sweetTea:1,chaos:1,freedom:2 } },
+        { label:"👏 An applause-worthy ending", scores:{ family:1,color:2,boom:2,Finale:5,sky:2,legend:4,picasso:1,hollywood:4,professor:1,sweetTea:2,chaos:2,freedom:3 } },
+        { label:"📱 An ending people record on their phones", scores:{ family:0,color:2,boom:3,Finale:6,sky:2,legend:5,picasso:2,hollywood:5,professor:1,sweetTea:3,chaos:3,freedom:3 } },
+        { label:"🚀 An ending that becomes family folklore", scores:{ family:0,color:1,boom:4,Finale:7,sky:2,legend:6,picasso:1,hollywood:5,professor:1,sweetTea:4,chaos:4,freedom:4 } }
+    ]
+}
+];
+
+// ============================================
+// QUIZ LOGIC
+// ============================================
+let answers = {};
+let currentQuestion = 0;
+
+function startQuiz() {
+    answers = {};
+    currentQuestion = 0;
+    showQuestion();
+}
+
+function showQuestion() {
+    const q = questions[currentQuestion];
+    if (!q) return;
+    const progressPercent = ((currentQuestion) / questions.length) * 100;
+    let html = `<div class="progress-container"><div class="progress-fill" style="width: ${progressPercent}%;"></div></div>`;
+    html += `<h2>${q.text}</h2>`;
+    q.options.forEach((option, idx) => {
+        html += `<button class="quiz-btn" onclick="saveAnswer(${idx})">${option.label}</button>`;
+    });
+    html += `<button class="back-button" onclick="previousQuestion()">← Back</button>`;
+    html += `<p class="small">Question ${currentQuestion+1} of ${questions.length}</p>`;
+    document.getElementById("content").innerHTML = html;
+}
+
+function previousQuestion() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        showQuestion();
+    }
+}
+
+function saveAnswer(optionIndex) {
+    const q = questions[currentQuestion];
+    if (!q || !q.options[optionIndex]) return;
+    answers[q.key] = q.options[optionIndex];
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showRecommendation();
+    }
+}
+
+function calculateScores() {
+    let totals = {};
+    Object.keys(personalities).forEach(k => totals[k] = 0);
+    Object.values(answers).forEach(answer => {
+        if (answer && answer.scores) {
+            Object.keys(answer.scores).forEach(key => {
+                totals[key] += answer.scores[key];
+            });
+        }
+    });
+    return totals;
+}
+
+function getRankedPersonalities(scores) {
+    return Object.keys(scores).map(key => ({ key, score: scores[key], data: personalities[key] })).sort((a, b) => b.score - a.score);
+}
+
+function renderShoppingList(items) {
+    let html = `<div class="shopping-list"><h4>📝 Your Shopping List</h4><ul>`;
+    items.forEach(item => {
+        html += `<li><strong>${item.name}</strong><br><span style="font-size:0.9rem; color:#94a3b8;">${item.description}</span></li>`;
+    });
+    html += `</ul></div>`;
+    return html;
+}
+
+function showPocketChangeGuide() {
+    let html = `<button class="back-button" onclick="resetToHome()" style="margin-bottom: 12px;">← Back to Main</button>
+    <div class="pocket-change-card" style="background: linear-gradient(135deg, #1f3b2c, #0f2c22);">
+        <h2>🪙 Pocket Change Fireworks 🪙</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 12px;"><strong>$5 – $10 budget?</strong> You can still have a blast!</p>
+        <div style="background:#0f172a; border-radius: 1rem; padding: 16px; text-align: left; margin: 16px 0;">
+            <h3>🎇 BEST BANG FOR YOUR BUCK ($5-10)</h3>
+            <ul style="margin-left: 20px; line-height: 1.6;">
+                <li><strong>🪄 Morning Glory / Glow Worm:</strong> Colorful ground fountains</li>
+                <li><strong>🐉 Dragon Eggs / Snaps:</strong> Hundreds of little pops</li>
+                <li><strong>🎆 Mini Fountain:</strong> Small shower of sparks & color</li>
+                <li><strong>💥 Crackling Balls / Tanks:</strong> Low altitude but crackles</li>
+                <li><strong>✨ Sparkler Assortment:</strong> Classic, great for photos</li>
+                <li><strong>🔥 Small Roman Candles:</strong> Small aerial pops</li>
+                <li><strong>🧨 Saturn Missile Batteries:</strong> Whistling missiles</li>
+                <li><strong>🌈 Color Smoke Balls:</strong> Huge colored smoke clouds</li>
+            </ul>
+            <div style="background:#1a2332; padding:12px; border-radius:1rem; margin-top:16px;">
+                💡 <strong>Sparky's Tip:</strong> For $10 you can get 2 fountains + sparklers = 5 minutes of fun!
+            </div>
+        </div>
+        <button class="quiz-btn" onclick="resetToHome()" style="background:#facc15;">⬅️ Back to Firework Quiz</button>
+    </div>`;
+    document.getElementById("content").innerHTML = html;
+}
+
+function resetToHome() {
+    location.reload();
+}
+
+function shareResult(personalityName) {
+    const text = `🎆 I'm a ${personalityName} according to Sparky Firework Finder! Get your free shopping list at the fireworks stand in the Smoker Friendly Liquor Store parking lot - NE corner of Jeffers St & Philips Ave! 🧨✨`;
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => alert("🎇 Result copied! Share with friends!")).catch(() => alert("Copy this: " + text));
+    } else {
+        alert("Copy this: " + text);
+    }
+}
+
+function showRecommendation() {
+    const scores = calculateScores();
+    const ranked = getRankedPersonalities(scores);
+    const primary = ranked[0];
+    
+    // Get budget and audience keys
+    const budgetKey = answers.budget?.budgetKey || "under50";
+    const audienceKey = answers.audience?.audienceKey || "family";
+    
+    // Get shopping list based on budget and audience
+    const shoppingItems = getShoppingList(budgetKey, audienceKey);
+    
+    // Random salesman joke
+    const joke = salesmanJokes[Math.floor(Math.random() * salesmanJokes.length)];
+    
+    // Random safety tip
+    const safetyTip = safetyTips[Math.floor(Math.random() * safetyTips.length)];
+
+    let html = `
+    <h2>🎖️ Your Firework Personality</h2>
+    <div style="text-align:center; margin: 10px 0;">
+        <span style="font-size:3rem;">${primary.data.emoji}</span>
+        <h3 style="border-left:none; text-align:center;">${primary.data.name}</h3>
+        <p style="color:#94a3b8; font-size:0.95rem;">${primary.data.description}</p>
+    </div>
+    
+    <div class="result-box">
+        ${renderShoppingList(shoppingItems)}
+        
+        <div class="salesman-humor">
+            👓 <strong>Salesman Tip:</strong> ${joke}
+        </div>
+        
+        <div class="safety-card" style="margin-top:16px;">
+            🔥 ${safetyTip}
+        </div>
+        
+        <div style="background:#1a2332; padding:12px; border-radius:1rem; margin-top:16px; text-align:center;">
+            <p><strong>📱 Show this list to a salesperson</strong><br>They'll help you find exactly what's on your list!</p>
+            <p style="margin-top:8px; color:#facc15; font-size:0.9rem;">
+                🎁 <strong>FREE FIREWORK CHALLENGE:</strong><br>
+                Make the older guy with glasses laugh with a joke and get a FREE mystery firework!*
+            </p>
+        </div>
+    </div>
+    
+    <div class="action-buttons">
+        <button class="quiz-btn" onclick="shareResult('${primary.data.name}')">📤 Share My List</button>
+        <button class="quiz-btn" onclick="startQuiz()">🔄 Start Over</button>
+    </div>
+    
+    <div class="stand-info">
+        🎆 FIND US AT THE FIREWORKS STAND! 🎆<br>
+        📍 <strong>Northeast corner of Jeffers St & Philips Ave</strong><br>
+        🅿️ In the <strong>Smoker Friendly Liquor Store</strong> parking lot<br>
+        🎁 <em>*While supplies last. Challenge may or may not be real. But he does love a good joke!</em>
+    </div>`;
+    
+    document.getElementById("content").innerHTML = html;
+}
+</script>
+</body>
+</html>
