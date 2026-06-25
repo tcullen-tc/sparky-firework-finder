@@ -32,6 +32,7 @@ button:hover { background:#475569; transform:scale(0.98); }
 ul { list-style-position:inside; }
 li { margin:10px 0; }
 .salesman-humor { background:#2a1f3a; border-left:5px solid #facc15; padding:14px 18px; border-radius:1rem; margin:16px 0; font-style:italic; color:#d4b8ff; }
+.price-tag { color:#4ade80; font-weight:bold; }
 @media (max-width:550px) { .card { padding:18px; } h1 { font-size:1.6rem; } h2 { font-size:1.3rem; } button { padding:12px; font-size:0.9rem; } }
 </style>
 </head>
@@ -119,7 +120,7 @@ const personalities = {
 };
 
 // ============================================
-// SHOPPING LISTS BY BUDGET & AGE GROUP
+// YOUR ACTUAL INVENTORY SHOPPING LISTS
 // ============================================
 function getShoppingList(budgetKey, audienceKey) {
     // Determine age group from audience
@@ -137,150 +138,250 @@ function getShoppingList(budgetKey, audienceKey) {
     else if (budgetKey === "200to500") tier = "premium";
     else if (budgetKey === "space") tier = "ultimate";
 
-    // Shopping lists by age group and tier
+    // ============================================
+    // YOUR ACTUAL PRODUCTS WITH PRICES
+    // ============================================
+    const products = {
+        // Aerial Cakes (500g)
+        excalibur: { name: "Excalibur Artillery Shells", price: "$110", description: "24 powerful canister shells with massive aerial booms and colorful breaks. A legendary top seller!" },
+        gorilla: { name: "Gorilla Cake", price: "$110", description: "40 powerful shots that fan out across the sky with color and loud effects for a full minute." },
+        merlin: { name: "Merlin", price: "$70", description: "30-shot magical themed cake with crackling stars and multicolored effects." },
+        snakeCharmer: { name: "Snake Charmer", price: "$85", description: "60-shot 500g cake with mesmerizing red, green, and blue crackle tails and willow effects." },
+        avenger: { name: "5\" Laser Avenger 60 Gram", price: "$70", description: "Premium 60g cake with 5-inch shell effects. Powerful and colorful display." },
+        kingArthur: { name: "King Arthur", price: "$60", description: "Classic artillery shell kit with powerful breaks and colorful effects." },
+        mickalangelos: { name: "Mickalangelo's", price: "$150", description: "Premium 500g cake with artistic color effects and beautiful displays." },
+        fireOverWater: { name: "Fire Over Water", price: "$70", description: "Unique 500g cake with effects that appear to dance over the ground." },
+        amazingBallet: { name: "Amazing Ballet", price: "$130", description: "Graceful aerial effects that dance across the sky like a ballet." },
+        pureVenom: { name: "Pure Venom", price: "$120", description: "Powerful 500g cake with intense color and crackling effects." },
+        growler: { name: "Growler", price: "$120", description: "Loud, aggressive effects that will make the ground shake." },
+        badReputation: { name: "Bad Reputation", price: "$100", description: "Rowdy effects for those who want to make some noise." },
+        rainMaker: { name: "Rain Maker", price: "$90", description: "Colorful effects that rain down like a sparkling waterfall." },
+        avengersCake: { name: "Avengers", price: "$115", description: "Superhero-themed effects with powerful breaks and vibrant colors." },
+        
+        // 200g Cakes & Novelties
+        crazyExciting: { name: "Crazy Exciting", price: "$30", description: "Fun, colorful effects that will keep everyone entertained." },
+        silverScreen: { name: "Silver Screen", price: "$25", description: "Hollywood-style effects with silver and gold breaks." },
+        blingBling: { name: "Bling Bling", price: "$20", description: "Glittering effects that sparkle like diamonds in the sky." },
+        packAPunch: { name: "Pack a Punch", price: "$22", description: "Small but mighty effects that pack a surprising punch." },
+        starBurned: { name: "Star Burned", price: "$30", description: "Brilliant star effects that burn bright in the night sky." },
+        nineLives: { name: "9 Lives", price: "$8", description: "Fun little effects that keep going and going." },
+        graffiti: { name: "Graffiti", price: "$35", description: "Colorful effects that paint the sky like street art." },
+        grapesOverVinylard: { name: "Grapes Over Vinylard", price: "$10", description: "Unique purple and green effects inspired by vineyards." },
+        xos: { name: "XO's", price: "$30", description: "Hugs and kisses effects - love-themed fireworks!" },
+        brainDamaged: { name: "Brain Damaged", price: "$20", description: "Crazy, unpredictable effects that will make you go... wait, what?" },
+        saturdayMissiles: { name: "300 Shot Saturday Missiles", price: "$18", description: "300 whistling missiles that zoom across the sky!" },
+        
+        // Other Cakes
+        ladiesNight: { name: "Ladies Night", price: "$60", description: "Colorful effects perfect for a girls' night out celebration." },
+        footballMania: { name: "Football Mania", price: "$70", description: "Cheer on your team with these energetic effects." },
+        offTheHook: { name: "Off the Hook", price: "$90", description: "Wild effects that are absolutely off the hook!" },
+        irishTwins: { name: "Irish Twins", price: "$30", description: "Two effects that follow each other like siblings." },
+        forOurFlag: { name: "For Our Flag", price: "$12", description: "Patriotic red, white, and blue effects." },
+        smileAwhile: { name: "Smile Awhile", price: "$10", description: "Effects that will put a smile on everyone's face." },
+        luckyLeprechaun: { name: "Lucky Leprechaun", price: "$8", description: "Green-themed effects for good luck!" },
+        rainbowSnow: { name: "Rainbow Snow Cone", price: "$20", description: "Colorful effects that look like a rainbow snow cone." },
+        luckOfIrish: { name: "Luck of the Irish", price: "$25", description: "More green effects for those feeling lucky." },
+        cowboyWorld: { name: "Cowboy World", price: "$25", description: "Western-themed effects with a wild west flair." },
+        starburst: { name: "Starburst", price: "$35", description: "Colorful starburst effects that light up the sky." },
+        foolsGold: { name: "Fools Gold", price: "$12", description: "Golden effects that look like treasure in the sky." },
+        midSummerDream: { name: "Mid Summer Dream", price: "$10", description: "Dreamy effects perfect for warm summer nights." },
+        gloryDays: { name: "Glory Days", price: "$12", description: "Celebrate the good old days with these classic effects." },
+        goGirl: { name: "Go Girl", price: "$12", description: "Empowering effects for the ladies!" },
+        atfAmericanHero: { name: "ATF American Hero", price: "$10", description: "Patriotic effects honoring American heroes." },
+        hunaChick: { name: "Huna Chick", price: "$12", description: "Fun Hawaiian-themed effects." },
+        heavyHitter: { name: "Heavy Hitter", price: "$15", description: "Packs a punch for its size!" },
+        casino: { name: "Casino", price: "$15", description: "Lucky effects for the gamblers out there." },
+        hillbillyHotTub: { name: "Hillbilly Hot Tub", price: "$15", description: "Fun, relaxed effects for a laid-back show." },
+        saturnMissile: { name: "100 Shot Saturn Missile", price: "$10", description: "100 whistling missiles in one tube!" },
+        rotoRoosters: { name: "Roto Roosters", price: "$15", description: "Spinning effects that fly in circles." },
+        smokeSky: { name: "Smoke Sky", price: "$15", description: "Colorful smoke clouds for daytime fun." },
+        smokeTubes: { name: "Smoke Tubes", price: "$15", description: "Simple tubes that release colorful smoke." },
+        tadPoles: { name: "Tad Poles", price: "$15", description: "Small jumping effects that hop like tadpoles." },
+        largeSmokeBombs: { name: "Large Smoke Bombs", price: "$5.50", description: "Big colorful smoke clouds for daytime fun." },
+        lightningRound: { name: "Lightning Round", price: "$4", description: "Quick, bright flashes like lightning bolts." },
+        mamasParachutes: { name: "Mamma's Parachutes", price: "$4", description: "Floating parachutes with colorful lights." },
+        gardenSpring: { name: "Garden in Spring", price: "$6", description: "Colorful effects that look like flowers blooming." },
+        dessertNight: { name: "Dessert at Night", price: "$6", description: "Sweet effects perfect for ending the night." },
+        roosters: { name: "Roto Roosters", price: "$15", description: "Spinning effects that fly in circles." },
+        strongFountain: { name: "World's Strongest Fountain", price: "$25", description: "Powerful fountain that shoots high and lasts long." }
+    };
+
+    // ============================================
+    // SHOPPING LISTS USING YOUR ACTUAL PRODUCTS
+    // ============================================
     const lists = {
         kids: {
             small: [
-                { name: "Sparkler Variety Pack", description: "Colorful sparklers perfect for little hands" },
-                { name: "Snap Pop Mega Pack", description: "Hours of popping fun on the sidewalk" },
-                { name: "Smoke Bomb Assortment", description: "Colorful smoke clouds for daytime fun" },
-                { name: "Mini Fountain Collection", description: "Small ground fountains with gentle colors" }
+                products.smokeTubes,
+                products.snapPops || { name: "Snap Pops (50-pack)", price: "$5", description: "Fun little poppers for kids" },
+                products.sparklers || { name: "Sparkler Variety Pack", price: "$8", description: "Colorful sparklers perfect for little hands" },
+                products.largeSmokeBombs,
+                products.mamasParachutes
             ],
             medium: [
-                { name: "Kids Party Assortment", description: "Curated collection of kid-safe favorites" },
-                { name: "Colorful Fountain Collection", description: "Multiple fountains with different colors" },
-                { name: "Sparkler & Smoke Mega Pack", description: "Everything for daytime fun" },
-                { name: "Mini Aerial Cakes", description: "Gentle aerial effects perfect for young ones" },
-                { name: "Family Fun Finale Cake", description: "Low-noise finale that everyone enjoys" }
+                products.smokeTubes,
+                products.largeSmokeBombs,
+                products.mamasParachutes,
+                products.rainbowSnow,
+                products.nineLives,
+                products.gardenSpring
             ],
             large: [
-                { name: "Ultimate Kids Show Package", description: "Complete kid-friendly show experience" },
-                { name: "Large Fountain Assortment", description: "Variety of fountains for a longer show" },
-                { name: "Colorful Aerial Collection", description: "Kid-safe aerial effects" },
-                { name: "Sparkler Celebration Pack", description: "Enough sparklers for everyone" },
-                { name: "Family Grand Finale", description: "Memorable ending without the boom" }
+                products.smokeTubes,
+                products.largeSmokeBombs,
+                products.rainbowSnow,
+                products.crazyExciting,
+                products.starBurned,
+                products.midSummerDream,
+                products.gardenSpring
             ],
             premium: [
-                { name: "Deluxe Kids Show Package", description: "Premium kid-friendly show experience" },
-                { name: "Ultimate Fountain Collection", description: "Premium fountains for maximum color" },
-                { name: "Colorful Aerial Mega Pack", description: "Extensive kid-safe aerial collection" },
-                { name: "Sparkler & Glow Mega Bundle", description: "Everything for a magical night" },
-                { name: "Kids Grand Finale Collection", description: "Multiple finale cakes for a big ending" }
+                products.smokeTubes,
+                products.rainbowSnow,
+                products.crazyExciting,
+                products.silverScreen,
+                products.blingBling,
+                products.starBurned,
+                products.gardenSpring
             ],
             ultimate: [
-                { name: "Legendary Kids Show Package", description: "The ultimate kid-friendly experience" },
-                { name: "Premium Fountain Mega Pack", description: "Professional-grade kid-safe fountains" },
-                { name: "Ultimate Aerial Collection", description: "The best kid-safe aerial effects" },
-                { name: "Sparkler & Light Show Bundle", description: "Complete lighting experience" },
-                { name: "Kids Epic Finale Collection", description: "Legendary ending for young ones" }
+                products.smokeTubes,
+                products.rainbowSnow,
+                products.crazyExciting,
+                products.silverScreen,
+                products.blingBling,
+                products.starBurned,
+                products.gardenSpring,
+                products.midSummerDream
             ]
         },
         family: {
             small: [
-                { name: "Family Fountain Assortment", description: "Variety of fountains everyone will enjoy" },
-                { name: "Sparkler Variety Pack", description: "Long-lasting sparklers in multiple colors" },
-                { name: "Smoke Bomb Collection", description: "Colorful smoke clouds for daytime fun" },
-                { name: "Snap Pop Mega Pack", description: "Fun poppers for kids and kids at heart" }
+                products.gardenSpring,
+                products.midSummerDream,
+                products.gloryDays,
+                products.goGirl,
+                products.largeSmokeBombs
             ],
             medium: [
-                { name: "Family Show Assortment", description: "Curated mix for the whole family" },
-                { name: "Colorful Fountain Collection", description: "Multiple fountains with different effects" },
-                { name: "Sparkler & Smoke Mega Pack", description: "Everything for a balanced show" },
-                { name: "Medium Aerial Cakes", description: "Impressive but family-friendly aerial effects" },
-                { name: "Family Finale Cake", description: "Satisfying ending everyone will enjoy" }
+                products.rainbowSnow,
+                products.luckOfIrish,
+                products.cowboyWorld,
+                products.foolsGold,
+                products.smokeTubes,
+                products.gardenSpring
             ],
             large: [
-                { name: "Ultimate Family Show Package", description: "Complete show for the whole family" },
-                { name: "Large Fountain Collection", description: "Premium fountains for a longer show" },
-                { name: "Family Aerial Collection", description: "Balanced aerial effects for all ages" },
-                { name: "Sparkler Celebration Pack", description: "Enough sparklers for the whole crew" },
-                { name: "Grand Family Finale", description: "Impressive ending without being overwhelming" }
+                products.crazyExciting,
+                products.silverScreen,
+                products.blingBling,
+                products.starBurned,
+                products.rainbowSnow,
+                products.luckOfIrish,
+                products.smokeTubes
             ],
             premium: [
-                { name: "Deluxe Family Show Package", description: "Premium family show experience" },
-                { name: "Ultimate Fountain Collection", description: "Professional-grade family fountains" },
-                { name: "Premium Family Aerial Pack", description: "High-quality family-friendly aerial effects" },
-                { name: "Sparkler & Glow Mega Bundle", description: "Complete family lighting package" },
-                { name: "Family Grand Finale Collection", description: "Multiple finale cakes for a big ending" }
+                products.crazyExciting,
+                products.silverScreen,
+                products.blingBing,
+                products.starBurned,
+                products.rainbowSnow,
+                products.smokeTubes,
+                products.saturdayMissiles
             ],
             ultimate: [
-                { name: "Legendary Family Show Package", description: "The ultimate family experience" },
-                { name: "Premium Fountain Mega Pack", description: "Professional-grade fountains" },
-                { name: "Ultimate Family Aerial Collection", description: "The best family aerial effects" },
-                { name: "Complete Family Lighting Bundle", description: "Everything for a memorable night" },
-                { name: "Family Epic Finale Collection", description: "Legendary ending for the whole family" }
+                products.merlin,
+                products.snakeCharmer,
+                products.rainbowSnow,
+                products.crazyExciting,
+                products.silverScreen,
+                products.starBurned,
+                products.smokeTubes,
+                products.saturdayMissiles
             ]
         },
         party: {
             small: [
-                { name: "Black Cat Cracker Pack", description: "Classic popping fun for the crowd" },
-                { name: "Mini Roman Candles", description: "Small aerial pops to get started" },
-                { name: "Crackling Ball Variety", description: "Fun ground effects everyone will enjoy" },
-                { name: "Mini Repeater", description: "Small but exciting repeater" }
+                products.saturdayMissiles,
+                products.smokeTubes,
+                products.largeSmokeBombs,
+                products.mamasParachutes
             ],
             medium: [
-                { name: "Party Assortment Box", description: "Curated crowd favorites" },
-                { name: "Aerial Cake Collection", description: "Multiple aerial cakes for variety" },
-                { name: "Repeater Variety Pack", description: "Different repeater styles" },
-                { name: "Whistling & Crackling Bundle", description: "Noise and fun combined" },
-                { name: "Medium Finale Cake", description: "Impressive ending for the party" }
+                products.saturdayMissiles,
+                products.crazyExciting,
+                products.silverScreen,
+                products.blingBling,
+                products.packAPunch,
+                products.smokeTubes
             ],
             large: [
-                { name: "Ultimate Party Show Package", description: "Complete show for a great party" },
-                { name: "Artillery Shell Collection", description: "Big aerial booms for the crowd" },
-                { name: "Premium Aerial Assortment", description: "High-quality aerial effects" },
-                { name: "Grand Finale Cake", description: "Big ending the crowd will love" },
-                { name: "Repeater Variety Bundle", description: "Different repeaters for variety" }
+                products.kingArthur,
+                products.avenger,
+                products.crazyExciting,
+                products.silverScreen,
+                products.blingBling,
+                products.saturdayMissiles
             ],
             premium: [
-                { name: "Deluxe Party Show Package", description: "Premium party show experience" },
-                { name: "Artillery Shell Mega Kit", description: "Professional-grade aerial booms" },
-                { name: "Premium Aerial Collection", description: "Top-tier aerial effects" },
-                { name: "Grand Finale Collection", description: "Multiple finale cakes for a big ending" },
-                { name: "Professional Repeater Bundle", description: "Professional-grade repeaters" }
+                products.excalibur,
+                products.gorilla,
+                products.kingArthur,
+                products.avenger,
+                products.snakeCharmer,
+                products.saturdayMissiles
             ],
             ultimate: [
-                { name: "Legendary Party Show Package", description: "The ultimate party experience" },
-                { name: "Ultimate Artillery Shell Kit", description: "The biggest, best shells available" },
-                { name: "Premium Aerial Mega Pack", description: "Extensive premium aerial collection" },
-                { name: "Epic Finale Collection", description: "Legendary ending for the party" },
-                { name: "Ultimate Repeater Bundle", description: "The best repeaters available" }
+                products.excalibur,
+                products.gorilla,
+                products.mickalangelos,
+                products.fireOverWater,
+                products.amazingBallet,
+                products.snakeCharmer,
+                products.saturdayMissiles
             ]
         },
         adult: {
             small: [
-                { name: "Black Cat Cracker Pack", description: "Classic celebration crackers" },
-                { name: "Artillery Shell Starter Kit", description: "Big booms in a small package" },
-                { name: "Aerial Cake Selection", description: "Colorful aerial displays" },
-                { name: "Whistling Repeater", description: "Exciting whistle effects" }
+                products.saturdayMissiles,
+                products.smokeTubes,
+                products.largeSmokeBombs,
+                products.mamasParachutes
             ],
             medium: [
-                { name: "Adult Assortment Box", description: "Curated favorites for adults" },
-                { name: "Artillery Shell Collection", description: "Big aerial booms" },
-                { name: "Aerial Cake Variety Pack", description: "Multiple cakes for a longer show" },
-                { name: "Grand Finale Cake", description: "Impressive ending" },
-                { name: "Repeater Variety Bundle", description: "Different repeater styles" }
+                products.kingArthur,
+                products.avenger,
+                products.crazyExciting,
+                products.silverScreen,
+                products.saturdayMissiles
             ],
             large: [
-                { name: "Ultimate Adult Show Package", description: "Complete show for adults" },
-                { name: "Artillery Shell Mega Kit", description: "Premium aerial booms" },
-                { name: "Premium Aerial Assortment", description: "High-quality aerial effects" },
-                { name: "Grand Finale Collection", description: "Multiple finale cakes" },
-                { name: "Professional Repeater Bundle", description: "Professional-grade effects" }
+                products.excalibur,
+                products.gorilla,
+                products.kingArthur,
+                products.avenger,
+                products.snakeCharmer,
+                products.saturdayMissiles
             ],
             premium: [
-                { name: "Deluxe Adult Show Package", description: "Premium adult show experience" },
-                { name: "Artillery Shell Pro Kit", description: "Professional-grade aerial booms" },
-                { name: "Premium Aerial Mega Pack", description: "Extensive premium aerial collection" },
-                { name: "Epic Finale Collection", description: "Multiple epic finale cakes" },
-                { name: "Ultimate Repeater Bundle", description: "Top-tier repeaters" }
+                products.excalibur,
+                products.gorilla,
+                products.mickalangelos,
+                products.fireOverWater,
+                products.amazingBallet,
+                products.snakeCharmer,
+                products.saturdayMissiles
             ],
             ultimate: [
-                { name: "Legendary Adult Show Package", description: "The ultimate adult experience" },
-                { name: "Ultimate Artillery Shell Kit", description: "The biggest, most powerful shells" },
-                { name: "Premium Aerial Ultimate Pack", description: "The best aerial effects available" },
-                { name: "Legendary Finale Collection", description: "Unforgettable ending" },
-                { name: "Ultimate Professional Bundle", description: "Everything for a legendary show" }
+                products.excalibur,
+                products.gorilla,
+                products.mickalangelos,
+                products.fireOverWater,
+                products.amazingBallet,
+                products.pureVenom,
+                products.growler,
+                products.badReputation,
+                products.rainMaker
             ]
         }
     };
@@ -489,7 +590,7 @@ function getRankedPersonalities(scores) {
 function renderShoppingList(items) {
     let html = `<div class="shopping-list"><h4>📝 Your Shopping List</h4><ul>`;
     items.forEach(item => {
-        html += `<li><strong>${item.name}</strong><br><span style="font-size:0.9rem; color:#94a3b8;">${item.description}</span></li>`;
+        html += `<li><strong>${item.name}</strong> — <span class="price-tag">${item.price}</span><br><span style="font-size:0.9rem; color:#94a3b8;">${item.description}</span></li>`;
     });
     html += `</ul></div>`;
     return html;
