@@ -1,19 +1,809 @@
-📝 Your Shopping List
-🎆 Mickalangelo's — $150
-   Premium 500g cake with artistic color effects...
-🎆 Fire Over Water — $130
-   Unique 500g cake with effects that dance...
-🎆 Amazing Ballet — $130
-   Graceful aerial effects that dance across the sky...
-🎆 Pure Venom — $120
-   Powerful 500g cake with intense color...
-🎆 Growler — $120
-   Loud, aggressive effects that will shake the ground...
-🎆 Avengers — $115
-   Superhero-themed effects with powerful breaks...
-🎆 Bad Reputation — $110
-   Rowdy effects for those who want to make noise...
-🎆 Excalibur Artillery Shells — $110
-   24 powerful canister shells with massive aerial booms...
-🎆 Gorilla Cake — $110
-   40 powerful shots that fan out across the sky...
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sparky Firework Finder | Get Your Shopping List!</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#0b1120; color:#e2e8f0; font-family:system-ui, 'Segoe UI', Arial, sans-serif; padding:16px; min-height:100vh; }
+.card { max-width:800px; margin:0 auto; background:#1e293b; border-radius:2rem; padding:24px 20px 32px; box-shadow:0 25px 45px -12px rgba(0,0,0,0.5); }
+h1 { color:#facc15; font-size:1.9rem; text-align:center; margin-bottom:12px; }
+h2 { font-size:1.6rem; margin:16px 0 20px; }
+h3 { font-size:1.3rem; margin:20px 0 12px; color:#facc15; border-left:4px solid #facc15; padding-left:14px; }
+h4 { font-size:1.1rem; margin:15px 0 8px; color:#facc15; }
+button { width:100%; padding:14px 16px; margin-top:12px; border:none; border-radius:60px; font-size:1rem; font-weight:600; cursor:pointer; background:#334155; color:#f1f5f9; transition:all 0.2s; font-family:inherit; }
+button:hover { background:#475569; transform:scale(0.98); }
+.quiz-btn { background:#facc15; color:#0f172a; font-weight:700; }
+.quiz-btn:hover { background:#ffdb4d; }
+.result-box { background:#0f172a; border-radius:1.5rem; padding:20px; margin:24px 0; text-align:left; }
+.safety-card { background:#2d1f1f; border-left:5px solid #ef4444; padding:14px 18px; border-radius:1rem; margin:20px 0; font-weight:500; }
+.pocket-change-card { background:linear-gradient(135deg, #1e3a2f, #0f2c22); border:2px solid #facc15; padding:18px; border-radius:1.5rem; margin:20px 0; text-align:center; }
+.progress-container { background:#334155; border-radius:40px; height:10px; margin-bottom:20px; overflow:hidden; }
+.progress-fill { background:#facc15; width:0%; height:100%; border-radius:40px; transition:width 0.25s ease; }
+.tip-banner { background:#0f212e; border-radius:1rem; padding:12px 16px; margin:16px 0 0; font-size:0.9rem; color:#a5f3fc; text-align:center; border:1px solid #facc1540; }
+.action-buttons { display:flex; gap:12px; flex-wrap:wrap; margin-top:20px; }
+.action-buttons button { flex:1; background:#334155; }
+.back-button { background:#475569; margin-top:8px; }
+.small { color:#94a3b8; font-size:0.8rem; margin-top:16px; text-align:center; }
+.stand-info { background:#facc15; color:#0f172a; padding:16px; border-radius:1.2rem; text-align:center; font-weight:bold; margin-top:24px; }
+.shopping-list { background:#1a2332; border-radius:1rem; padding:16px; margin:12px 0; border-left:3px solid #facc15; }
+.shopping-list li { margin:8px 0; list-style-type: "🎆 "; padding-left:8px; }
+ul { list-style-position:inside; }
+li { margin:10px 0; }
+.salesman-humor { background:#2a1f3a; border-left:5px solid #facc15; padding:14px 18px; border-radius:1rem; margin:16px 0; font-style:italic; color:#d4b8ff; }
+.price-tag { color:#4ade80; font-weight:bold; }
+.sparky-image { max-width:200px; margin:10px auto; display:block; border-radius:50%; border:3px solid #facc15; }
+.welcome-text { font-size:1.2rem; color:#e2e8f0; margin:16px 0; }
+@media (max-width:550px) { .card { padding:18px; } h1 { font-size:1.6rem; } h2 { font-size:1.3rem; } button { padding:12px; font-size:0.9rem; } }
+</style>
+</head>
+<body>
+<div class="card" id="appCard">
+    <h1>🎆 Sparky Firework Finder</h1>
+    <div id="content">
+        <!-- SPARKY IMAGE -->
+        <img src="https://raw.githubusercontent.com/tcullen-tc/sparky-firework-finder/main/Sparky%20image%20for%20github.png" alt="Sparky" class="sparky-image">
+        
+        <p class="welcome-text">👋 Welcome to Sparky's Firework Finder!</p>
+        <p style="margin:16px 0;">Not sure what fireworks to buy? Let Sparky help you find the perfect fireworks for your show!</p>
+        
+        <!-- CLEARER BUTTON WITH INSTRUCTIONS -->
+        <div style="background:#1a2332; padding:16px; border-radius:1rem; margin:20px 0; border-left:4px solid #facc15;">
+            <p style="color:#94a3b8; font-size:0.9rem; margin-bottom:8px;">👇 <strong>START HERE</strong> 👇</p>
+            <button class="quiz-btn" onclick="startQuiz()" style="font-size:1.2rem; padding:18px;">🔥 Answer 9 Questions & Get Your Shopping List 🔥</button>
+            <p style="color:#94a3b8; font-size:0.8rem; margin-top:8px;">It only takes 2 minutes! We'll match you to the perfect fireworks.</p>
+        </div>
+        
+        <div class="pocket-change-card" style="margin-top:24px;">
+            <h3>🪙 ONLY GOT A FEW BUCKS? 🪙</h3>
+            <p style="margin:8px 0;"><strong>$5 - $10 budget?</strong> You can still have a blast!</p>
+            <button class="quiz-btn" onclick="showPocketChangeGuide()" style="background:#facc15; margin-top:10px;">💥 Show Me $5-$10 Fireworks Guide 💥</button>
+        </div>
+        <div class="tip-banner">✨ Did you know? A simple sparkler burns at 2000°F — but it won't rock the neighborhood! We'll match you to the right boom (or quiet sparkle).</div>
+    </div>
+</div>
+
+<script>
+// ============================================
+// PERSONALITIES
+// ============================================
+const personalities = {
+    family: { 
+        name:"Neighborhood Favorite", 
+        emoji:"😇",
+        description:"You enjoy fireworks that bring smiles and memories without turning the neighborhood Facebook page into a debate."
+    },
+    color: { 
+        name:"Color Chaser", 
+        emoji:"🎇",
+        description:"You care more about beautiful colors than raw noise. Every firework should look like a painting."
+    },
+    boom: { 
+        name:"Boom Seeker", 
+        emoji:"💥",
+        description:"You believe fireworks should be experienced with your entire rib cage."
+    },
+    finale: { 
+        name:"Finale Master", 
+        emoji:"👑",
+        description:"You're building toward a finish that people will remember long after the smoke clears."
+    },
+    sky: { 
+        name:"Sky Commander", 
+        emoji:"🚀",
+        description:"You like a balanced show with lots happening overhead."
+    },
+    legend: { 
+        name:"Backyard Legend", 
+        emoji:"🧨",
+        description:"You're trying to put on the show people compare every future show against."
+    },
+    picasso: { 
+        name:"Pyro Artist", 
+        emoji:"🎨",
+        description:"You appreciate beauty, timing, color, and creativity."
+    },
+    hollywood: { 
+        name:"Show Producer", 
+        emoji:"🎬",
+        description:"You think fireworks should have pacing, drama, and a memorable climax."
+    },
+    professor: { 
+        name:"Pyro Professor", 
+        emoji:"🔥",
+        description:"You appreciate variety and know that a good show isn't just noise."
+    },
+    sweetTea: { 
+        name:"Adventurer", 
+        emoji:"🤪",
+        description:"You checked every exciting answer and Sparky is mildly concerned."
+    },
+    chaos: { 
+        name:"Captain Chaos", 
+        emoji:"🏴‍☠️",
+        description:"You selected maximum enthusiasm at nearly every opportunity."
+    },
+    freedom: { 
+        name:"Freedom Amplifier", 
+        emoji:"🇺🇸",
+        description:"You believe fireworks are an important part of celebrating Independence Day."
+    }
+};
+
+// ============================================
+// YOUR ACTUAL INVENTORY
+// ============================================
+const products = {
+    // === PREMIUM 500g CAKES ($100+) ===
+    mickalangelos: { 
+        name: "Mickalangelo's", 
+        price: "$150", 
+        description: "Premium 500g cake with artistic color effects and beautiful displays.",
+        tier: "premium",
+        category: "cake"
+    },
+    fireOverWater: { 
+        name: "Fire Over Water", 
+        price: "$130", 
+        description: "Unique 500g cake with effects that appear to dance over the ground.",
+        tier: "premium",
+        category: "cake"
+    },
+    amazingBallet: { 
+        name: "Amazing Ballet", 
+        price: "$130", 
+        description: "Graceful aerial effects that dance across the sky like a ballet.",
+        tier: "premium",
+        category: "cake"
+    },
+    pureVenom: { 
+        name: "Pure Venom", 
+        price: "$120", 
+        description: "Powerful 500g cake with intense color and crackling effects.",
+        tier: "premium",
+        category: "cake"
+    },
+    growler: { 
+        name: "Growler", 
+        price: "$120", 
+        description: "Loud, aggressive effects that will make the ground shake.",
+        tier: "premium",
+        category: "cake"
+    },
+    avengersCake: { 
+        name: "Avengers", 
+        price: "$115", 
+        description: "Superhero-themed effects with powerful breaks and vibrant colors.",
+        tier: "premium",
+        category: "cake"
+    },
+    badReputation: { 
+        name: "Bad Reputation", 
+        price: "$110", 
+        description: "Rowdy effects for those who want to make some noise.",
+        tier: "premium",
+        category: "cake"
+    },
+    excalibur: { 
+        name: "Excalibur Artillery Shells", 
+        price: "$110", 
+        description: "24 powerful canister shells with massive aerial booms and colorful breaks. A legendary top seller!",
+        tier: "premium",
+        category: "shells"
+    },
+    gorilla: { 
+        name: "Gorilla Cake", 
+        price: "$110", 
+        description: "40 powerful shots that fan out across the sky with color and loud effects for a full minute.",
+        tier: "premium",
+        category: "cake"
+    },
+
+    // === MID-RANGE 500g CAKES ($50-$100) ===
+    rainMaker: { 
+        name: "Rain Maker", 
+        price: "$90", 
+        description: "Colorful effects that rain down like a sparkling waterfall.",
+        tier: "mid",
+        category: "cake"
+    },
+    offTheHook: { 
+        name: "Off the Hook", 
+        price: "$90", 
+        description: "Wild effects that are absolutely off the hook!",
+        tier: "mid",
+        category: "cake"
+    },
+    snakeCharmer: { 
+        name: "Snake Charmer", 
+        price: "$85", 
+        description: "60-shot 500g cake with mesmerizing red, green, and blue crackle tails and willow effects.",
+        tier: "mid",
+        category: "cake"
+    },
+    merlin: { 
+        name: "Merlin", 
+        price: "$70", 
+        description: "30-shot magical themed cake with crackling stars and multicolored effects.",
+        tier: "mid",
+        category: "cake"
+    },
+    avenger: { 
+        name: "5\" Laser Avenger 60 Gram", 
+        price: "$70", 
+        description: "Premium 60g cake with 5-inch shell effects. Powerful and colorful display.",
+        tier: "mid",
+        category: "cake"
+    },
+    footballMania: { 
+        name: "Football Mania", 
+        price: "$70", 
+        description: "Cheer on your team with these energetic effects.",
+        tier: "mid",
+        category: "cake"
+    },
+    kingArthur: { 
+        name: "King Arthur", 
+        price: "$60", 
+        description: "Classic artillery shell kit with powerful breaks and colorful effects.",
+        tier: "mid",
+        category: "shells"
+    },
+    ladiesNight: { 
+        name: "Ladies Night", 
+        price: "$60", 
+        description: "Colorful effects perfect for a girls' night out celebration.",
+        tier: "mid",
+        category: "cake"
+    },
+
+    // === 200g CAKES & NOVELTIES ($15-$50) ===
+    crazyExciting: { name: "Crazy Exciting", price: "$30", description: "Fun, colorful effects that will keep everyone entertained.", tier: "novelty", category: "cake" },
+    silverScreen: { name: "Silver Screen", price: "$25", description: "Hollywood-style effects with silver and gold breaks.", tier: "novelty", category: "cake" },
+    blingBling: { name: "Bling Bling", price: "$20", description: "Glittering effects that sparkle like diamonds in the sky.", tier: "novelty", category: "cake" },
+    packAPunch: { name: "Pack a Punch", price: "$22", description: "Small but mighty effects that pack a surprising punch.", tier: "novelty", category: "cake" },
+    starBurned: { name: "Star Burned", price: "$30", description: "Brilliant star effects that burn bright in the night sky.", tier: "novelty", category: "cake" },
+    nineLives: { name: "9 Lives", price: "$8", description: "Fun little effects that keep going and going.", tier: "novelty", category: "novelty" },
+    graffiti: { name: "Graffiti", price: "$35", description: "Colorful effects that paint the sky like street art.", tier: "novelty", category: "cake" },
+    grapesOverVinylard: { name: "Grapes Over Vinylard", price: "$10", description: "Unique purple and green effects inspired by vineyards.", tier: "novelty", category: "novelty" },
+    xos: { name: "XO's", price: "$30", description: "Hugs and kisses effects - love-themed fireworks!", tier: "novelty", category: "cake" },
+    brainDamaged: { name: "Brain Damaged", price: "$20", description: "Crazy, unpredictable effects that will make you go... wait, what?", tier: "novelty", category: "cake" },
+    saturdayMissiles: { name: "300 Shot Saturday Missiles", price: "$18", description: "300 whistling missiles that zoom across the sky!", tier: "novelty", category: "novelty" },
+    irishTwins: { name: "Irish Twins", price: "$30", description: "Two effects that follow each other like siblings.", tier: "novelty", category: "cake" },
+    forOurFlag: { name: "For Our Flag", price: "$12", description: "Patriotic red, white, and blue effects.", tier: "novelty", category: "novelty" },
+    smileAwhile: { name: "Smile Awhile", price: "$10", description: "Effects that will put a smile on everyone's face.", tier: "novelty", category: "novelty" },
+    luckyLeprechaun: { name: "Lucky Leprechaun", price: "$8", description: "Green-themed effects for good luck!", tier: "novelty", category: "novelty" },
+    rainbowSnow: { name: "Rainbow Snow Cone", price: "$20", description: "Colorful effects that look like a rainbow snow cone.", tier: "novelty", category: "cake" },
+    luckOfIrish: { name: "Luck of the Irish", price: "$25", description: "More green effects for those feeling lucky.", tier: "novelty", category: "cake" },
+    cowboyWorld: { name: "Cowboy World", price: "$25", description: "Western-themed effects with a wild west flair.", tier: "novelty", category: "cake" },
+    starburst: { name: "Starburst", price: "$35", description: "Colorful starburst effects that light up the sky.", tier: "novelty", category: "cake" },
+    foolsGold: { name: "Fools Gold", price: "$12", description: "Golden effects that look like treasure in the sky.", tier: "novelty", category: "novelty" },
+    midSummerDream: { name: "Mid Summer Dream", price: "$10", description: "Dreamy effects perfect for warm summer nights.", tier: "novelty", category: "novelty" },
+    gloryDays: { name: "Glory Days", price: "$12", description: "Celebrate the good old days with these classic effects.", tier: "novelty", category: "novelty" },
+    goGirl: { name: "Go Girl", price: "$12", description: "Empowering effects for the ladies!", tier: "novelty", category: "novelty" },
+    atfAmericanHero: { name: "ATF American Hero", price: "$10", description: "Patriotic effects honoring American heroes.", tier: "novelty", category: "novelty" },
+    hunaChick: { name: "Huna Chick", price: "$12", description: "Fun Hawaiian-themed effects.", tier: "novelty", category: "novelty" },
+    heavyHitter: { name: "Heavy Hitter", price: "$15", description: "Packs a punch for its size!", tier: "novelty", category: "novelty" },
+    casino: { name: "Casino", price: "$15", description: "Lucky effects for the gamblers out there.", tier: "novelty", category: "novelty" },
+    hillbillyHotTub: { name: "Hillbilly Hot Tub", price: "$15", description: "Fun, relaxed effects for a laid-back show.", tier: "novelty", category: "novelty" },
+    saturnMissile: { name: "100 Shot Saturn Missile", price: "$10", description: "100 whistling missiles in one tube!", tier: "novelty", category: "novelty" },
+    rotoRoosters: { name: "Roto Roosters", price: "$15", description: "Spinning effects that fly in circles.", tier: "novelty", category: "novelty" },
+    smokeSky: { name: "Smoke Sky", price: "$15", description: "Colorful smoke clouds for daytime fun.", tier: "novelty", category: "novelty" },
+    smokeTubes: { name: "Smoke Tubes", price: "$15", description: "Simple tubes that release colorful smoke.", tier: "novelty", category: "novelty" },
+    tadPoles: { name: "Tad Poles", price: "$15", description: "Small jumping effects that hop like tadpoles.", tier: "novelty", category: "novelty" },
+    largeSmokeBombs: { name: "Large Smoke Bombs", price: "$5.50", description: "Big colorful smoke clouds for daytime fun.", tier: "novelty", category: "novelty" },
+    lightningRound: { name: "Lightning Round", price: "$4", description: "Quick, bright flashes like lightning bolts.", tier: "novelty", category: "novelty" },
+    mamasParachutes: { name: "Mamma's Parachutes", price: "$4", description: "Floating parachutes with colorful lights.", tier: "novelty", category: "novelty" },
+    gardenSpring: { name: "Garden in Spring", price: "$6", description: "Colorful effects that look like flowers blooming.", tier: "novelty", category: "novelty" },
+    dessertNight: { name: "Dessert at Night", price: "$6", description: "Sweet effects perfect for ending the night.", tier: "novelty", category: "novelty" },
+    strongFountain: { name: "World's Strongest Fountain", price: "$25", description: "Powerful fountain that shoots high and lasts long.", tier: "novelty", category: "novelty" }
+};
+
+// ============================================
+// PREMIUM PRODUCT LISTS
+// ============================================
+const premiumProducts = [
+    products.mickalangelos,
+    products.fireOverWater,
+    products.amazingBallet,
+    products.pureVenom,
+    products.growler,
+    products.avengersCake,
+    products.badReputation,
+    products.excalibur,
+    products.gorilla
+];
+
+const midRangeProducts = [
+    products.rainMaker,
+    products.offTheHook,
+    products.snakeCharmer,
+    products.merlin,
+    products.avenger,
+    products.footballMania,
+    products.kingArthur,
+    products.ladiesNight
+];
+
+const noveltyProducts = [
+    products.crazyExciting,
+    products.silverScreen,
+    products.blingBling,
+    products.packAPunch,
+    products.starBurned,
+    products.nineLives,
+    products.graffiti,
+    products.grapesOverVinylard,
+    products.xos,
+    products.brainDamaged,
+    products.saturdayMissiles,
+    products.irishTwins,
+    products.forOurFlag,
+    products.smileAwhile,
+    products.luckyLeprechaun,
+    products.rainbowSnow,
+    products.luckOfIrish,
+    products.cowboyWorld,
+    products.starburst,
+    products.foolsGold,
+    products.midSummerDream,
+    products.gloryDays,
+    products.goGirl,
+    products.atfAmericanHero,
+    products.hunaChick,
+    products.heavyHitter,
+    products.casino,
+    products.hillbillyHotTub,
+    products.saturnMissile,
+    products.rotoRoosters,
+    products.smokeSky,
+    products.smokeTubes,
+    products.tadPoles,
+    products.largeSmokeBombs,
+    products.lightningRound,
+    products.mamasParachutes,
+    products.gardenSpring,
+    products.dessertNight,
+    products.strongFountain
+];
+
+// ============================================
+// SHOPPING LIST FUNCTION
+// ============================================
+function getShoppingList(budgetKey, audienceKey, primaryPersonalityKey) {
+    let tier = "small";
+    if (budgetKey === "under50") tier = "small";
+    else if (budgetKey === "50to100") tier = "medium";
+    else if (budgetKey === "100to200") tier = "large";
+    else if (budgetKey === "200to500") tier = "premium";
+    else if (budgetKey === "space") tier = "ultimate";
+
+    let ageGroup = "adult";
+    if (audienceKey === "kids" || audienceKey === "dog") ageGroup = "kids";
+    else if (audienceKey === "family") ageGroup = "family";
+    else if (audienceKey === "bbq") ageGroup = "party";
+    else if (audienceKey === "adults") ageGroup = "adult";
+
+    const premiumPersonalities = ["legend", "chaos", "finale", "hollywood"];
+    const isPremiumPersonality = premiumPersonalities.includes(primaryPersonalityKey);
+
+    // --- PREMIUM PERSONALITY + HIGH BUDGET = ALL PREMIUM PRODUCTS ---
+    if (isPremiumPersonality && (tier === "large" || tier === "premium" || tier === "ultimate")) {
+        let selected = [...premiumProducts];
+        
+        const midToAdd = midRangeProducts.filter(p => !selected.some(s => s.name === p.name));
+        const shuffledMid = [...midToAdd].sort(() => Math.random() - 0.5);
+        for (let i = 0; i < Math.min(3, shuffledMid.length); i++) {
+            selected.push(shuffledMid[i]);
+        }
+        
+        const noveltyToAdd = noveltyProducts.filter(p => !selected.some(s => s.name === p.name));
+        const shuffledNovelty = [...noveltyToAdd].sort(() => Math.random() - 0.5);
+        for (let i = 0; i < Math.min(2, shuffledNovelty.length); i++) {
+            selected.push(shuffledNovelty[i]);
+        }
+        
+        const uniqueSelected = [];
+        const seenNames = new Set();
+        for (const item of selected) {
+            if (!seenNames.has(item.name)) {
+                seenNames.add(item.name);
+                uniqueSelected.push(item);
+            }
+        }
+        
+        const premiumItems = uniqueSelected.filter(p => p.tier === "premium");
+        const nonPremiumItems = uniqueSelected.filter(p => p.tier !== "premium");
+        premiumItems.sort((a, b) => parseFloat(b.price.replace('$', '')) - parseFloat(a.price.replace('$', '')));
+        
+        const sortedList = [...premiumItems, ...nonPremiumItems];
+        
+        let itemCount = tier === "large" ? 6 : tier === "premium" ? 7 : 8;
+        return sortedList.slice(0, Math.min(itemCount, sortedList.length));
+    }
+
+    // --- NORMAL LOGIC ---
+    let availableProducts = [];
+    if (ageGroup === "kids") {
+        availableProducts = noveltyProducts.filter(p => parseFloat(p.price.replace('$', '')) <= 30);
+    } else if (ageGroup === "family") {
+        availableProducts = noveltyProducts.filter(p => parseFloat(p.price.replace('$', '')) <= 35);
+        availableProducts = [...availableProducts, ...midRangeProducts.slice(0, 4)];
+        if (tier === "large" || tier === "premium" || tier === "ultimate") {
+            availableProducts = [...availableProducts, ...premiumProducts.slice(0, 4)];
+        }
+    } else {
+        availableProducts = [...noveltyProducts, ...midRangeProducts, ...premiumProducts];
+    }
+    
+    let tieredProducts = [];
+    if (tier === "small") {
+        tieredProducts = availableProducts.filter(p => parseFloat(p.price.replace('$', '')) <= 50);
+    } else if (tier === "medium") {
+        tieredProducts = availableProducts.filter(p => parseFloat(p.price.replace('$', '')) <= 100);
+    } else if (tier === "large") {
+        tieredProducts = availableProducts.filter(p => parseFloat(p.price.replace('$', '')) <= 200);
+    } else {
+        tieredProducts = [...availableProducts];
+    }
+    
+    const uniqueItems = [];
+    const seen = new Set();
+    for (const item of tieredProducts) {
+        if (!seen.has(item.name)) {
+            seen.add(item.name);
+            uniqueItems.push(item);
+        }
+    }
+    
+    if (tier === "premium" || tier === "ultimate") {
+        uniqueItems.sort((a, b) => parseFloat(b.price.replace('$', '')) - parseFloat(a.price.replace('$', '')));
+    } else {
+        uniqueItems.sort(() => Math.random() - 0.5);
+    }
+    
+    let itemCount = tier === "small" ? 4 : tier === "medium" ? 5 : tier === "large" ? 6 : tier === "premium" ? 7 : 8;
+    return uniqueItems.slice(0, Math.min(itemCount, uniqueItems.length));
+}
+
+// ============================================
+// SALESMAN JOKES
+// ============================================
+const salesmanJokes = [
+    "If you get the older guy with glasses, speak up - he's been testing fireworks too close for 40 years! His hearing is... WHAT DID YOU SAY?!",
+    "If you get the older guy with glasses, move fast - he takes a bathroom break every 15 minutes and he WILL abandon a transaction mid-sentence!",
+    "If you get the older guy with glasses, don't mention the 70s - he was there and he'll tell you EVERYTHING about it. With photos.",
+    "If you get the older guy with glasses, just point at what you want - his hearing is gone but he can still spot a firework deal from 50 yards.",
+    "If you get the older guy with glasses, prepare for a story. He's told the same one about the 'Great Fountain of '89' to 47 people today.",
+    "If you get the older guy with glasses, don't ask about his back - he'll show you his surgery scar. Every. Single. Time.",
+    "If you get the older guy with glasses, check your receipt - he'll 'accidentally' add a few extra sparklers because 'you looked like you needed them.'",
+    "If you get the older guy with glasses, be patient - he's telling everyone about his grandkids' firework show last year."
+];
+
+// ============================================
+// SAFETY TIPS
+// ============================================
+const safetyTips = [
+    "💧 Keep a bucket of water or hose nearby at all times!",
+    "👓 Protect your eyes - wear safety glasses when lighting!",
+    "🚫 Never relight a dud - wait 20 minutes then soak it in water.",
+    "🧑‍🤝‍🧑 Designate a responsible adult as the 'Pyro in Charge'.",
+    "🐾 Keep pets indoors - they don't appreciate the boom like you do!",
+    "🔥 Light one firework at a time, then move back quickly.",
+    "🗑️ Soak used fireworks in water before throwing them away.",
+    "🚗 Keep fireworks away from cars and flammable materials!",
+    "👨‍👩‍👧‍👦 Always supervise children around fireworks!",
+    "📱 Keep your phone handy - but not while lighting fireworks!"
+];
+
+// ============================================
+// QUIZ QUESTIONS
+// ============================================
+const questions = [
+{ 
+    key:"loudness", 
+    text:"How loud do you want tonight to be?", 
+    options:[
+        { label:"😴 Let's not wake the baby.", scores:{ family:6,color:1,boom:0,Finale:0,sky:0,legend:0,picasso:1,hollywood:0,professor:1,sweetTea:0,chaos:0,freedom:1 } },
+        { label:"😊 A few nice pops.", scores:{ family:5,color:1,boom:1,Finale:0,sky:1,legend:0,picasso:1,hollywood:0,professor:1,sweetTea:0,chaos:0,freedom:1 } },
+        { label:"😎 I want the neighbors to notice.", scores:{ family:1,color:1,boom:3,Finale:2,sky:2,legend:3,picasso:0,hollywood:1,professor:1,sweetTea:2,chaos:2,freedom:3 } },
+        { label:"💥 I want the neighbors checking their security cameras.", scores:{ family:0,color:0,boom:5,Finale:3,sky:2,legend:4,picasso:0,hollywood:1,professor:1,sweetTea:3,chaos:5,freedom:4 } },
+        { label:"🚀 I want nearby seismographs to become suspicious.", scores:{ family:0,color:0,boom:6,Finale:4,sky:2,legend:5,picasso:0,hollywood:2,professor:0,sweetTea:4,chaos:7,freedom:5 } }
+    ]
+},
+{ 
+    key:"effect", 
+    text:"What do you enjoy watching most?", 
+    options:[
+        { label:"🌈 Big colorful bursts", scores:{ family:1,color:5,boom:1,Finale:1,sky:3,legend:1,picasso:5,hollywood:2,professor:2,sweetTea:1,chaos:0,freedom:2 } },
+        { label:"✨ Glitter and sparkle", scores:{ family:2,color:5,boom:0,Finale:1,sky:2,legend:0,picasso:6,hollywood:2,professor:2,sweetTea:1,chaos:0,freedom:1 } },
+        { label:"🔥 Crackling effects", scores:{ family:2,color:2,boom:2,Finale:2,sky:2,legend:1,picasso:2,hollywood:1,professor:5,sweetTea:2,chaos:1,freedom:2 } },
+        { label:"🎺 Whistles and screamers", scores:{ family:0,color:1,boom:3,Finale:2,sky:2,legend:2,picasso:0,hollywood:1,professor:2,sweetTea:3,chaos:3,freedom:2 } },
+        { label:"💥 Rapid-fire booms", scores:{ family:0,color:0,boom:5,Finale:3,sky:2,legend:3,picasso:0,hollywood:1,professor:1,sweetTea:4,chaos:5,freedom:3 } },
+        { label:"🤯 Everything. Give me everything.", scores:{ family:0,color:3,boom:4,Finale:5,sky:4,legend:4,picasso:3,hollywood:4,professor:4,sweetTea:7,chaos:5,freedom:4 } }
+    ]
+},
+{ 
+    key:"audience", 
+    text:"Who is watching tonight?", 
+    options:[
+        { label:"👶 Kids", scores:{ family:6,color:2,boom:0,Finale:0,sky:0,legend:0,picasso:1,hollywood:0,professor:1,sweetTea:0,chaos:0,freedom:1 }, audienceKey:"kids" },
+        { label:"👨‍👩‍👧‍👦 Family", scores:{ family:4,color:2,boom:1,Finale:1,sky:1,legend:1,picasso:1,hollywood:1,professor:1,sweetTea:0,chaos:0,freedom:2 }, audienceKey:"family" },
+        { label:"🍔 Backyard BBQ crowd", scores:{ family:2,color:2,boom:2,Finale:2,sky:2,legend:3,picasso:1,hollywood:2,professor:2,sweetTea:2,chaos:1,freedom:3 }, audienceKey:"bbq" },
+        { label:"😎 Adults who came for explosions", scores:{ family:0,color:0,boom:5,Finale:3,sky:2,legend:3,picasso:0,hollywood:1,professor:1,sweetTea:3,chaos:5,freedom:3 }, audienceKey:"adults" },
+        { label:"🐕 My dog is already unhappy.", scores:{ family:4,color:0,boom:0,Finale:0,sky:0,legend:0,picasso:0,hollywood:0,professor:0,sweetTea:1,chaos:0,freedom:0 }, audienceKey:"dog" }
+    ]
+},
+{ 
+    key:"goal", 
+    text:"What is your goal tonight?", 
+    options:[
+        { label:"😊 Make memories", scores:{ family:5,color:2,boom:0,Finale:1,sky:1,legend:1,picasso:1,hollywood:1,professor:1,sweetTea:0,chaos:0,freedom:3 } },
+        { label:"🎇 Put on a beautiful show", scores:{ family:1,color:5,boom:0,Finale:2,sky:3,legend:1,picasso:6,hollywood:4,professor:3,sweetTea:0,chaos:0,freedom:2 } },
+        { label:"💥 Win the neighborhood", scores:{ family:0,color:1,boom:5,Finale:4,sky:2,legend:6,picasso:0,hollywood:3,professor:1,sweetTea:4,chaos:5,freedom:4 } },
+        { label:"🏆 Become a local legend", scores:{ family:0,color:1,boom:3,Finale:5,sky:2,legend:7,picasso:0,hollywood:4,professor:1,sweetTea:4,chaos:4,freedom:4 } },
+        { label:"👑 Achieve family folklore status", scores:{ family:0,color:1,boom:2,Finale:6,sky:2,legend:6,picasso:0,hollywood:5,professor:1,sweetTea:3,chaos:3,freedom:4 } }
+    ]
+},
+{ 
+    key:"budget", 
+    text:"What budget range are you thinking?", 
+    options:[
+        { label:"💵 Under $50", scores:{ family:4,color:1,boom:0,Finale:0,sky:0,legend:0,picasso:1,hollywood:0,professor:1,sweetTea:0,chaos:0,freedom:1 }, budgetKey:"under50" },
+        { label:"💵💵 $50-$100", scores:{ family:3,color:2,boom:1,Finale:1,sky:1,legend:1,picasso:1,hollywood:1,professor:2,sweetTea:0,chaos:0,freedom:2 }, budgetKey:"50to100" },
+        { label:"💵💵💵 $100-$200", scores:{ family:1,color:2,boom:2,Finale:2,sky:2,legend:2,picasso:2,hollywood:2,professor:2,sweetTea:1,chaos:1,freedom:2 }, budgetKey:"100to200" },
+        { label:"💵💵💵💵 $200-$500", scores:{ family:0,color:1,boom:3,Finale:4,sky:3,legend:4,picasso:1,hollywood:4,professor:2,sweetTea:3,chaos:3,freedom:3 }, budgetKey:"200to500" },
+        { label:"🎖️ I'm funding my own space program.", scores:{ family:0,color:1,boom:5,Finale:6,sky:3,legend:5,picasso:1,hollywood:5,professor:1,sweetTea:5,chaos:6,freedom:5 }, budgetKey:"space" }
+    ]
+},
+{ 
+    key:"experience", 
+    text:"How experienced are you with fireworks?", 
+    options:[
+        { label:"🧍 First timer", scores:{ family:4,color:2,boom:0,Finale:0,sky:1,legend:0,picasso:1,hollywood:0,professor:0,sweetTea:0,chaos:0,freedom:1 } },
+        { label:"🙂 Casual user", scores:{ family:3,color:2,boom:1,Finale:1,sky:2,legend:1,picasso:1,hollywood:1,professor:1,sweetTea:0,chaos:0,freedom:2 } },
+        { label:"😎 Experienced", scores:{ family:1,color:2,boom:2,Finale:2,sky:3,legend:2,picasso:2,hollywood:2,professor:3,sweetTea:1,chaos:1,freedom:2 } },
+        { label:"🏡 Backyard veteran", scores:{ family:0,color:1,boom:3,Finale:3,sky:3,legend:4,picasso:1,hollywood:3,professor:4,sweetTea:2,chaos:2,freedom:3 } },
+        { label:"📛 The neighbors know my name", scores:{ family:0,color:0,boom:5,Finale:4,sky:2,legend:5,picasso:0,hollywood:2,professor:2,sweetTea:4,chaos:6,freedom:4 } }
+    ]
+},
+{ 
+    key:"length", 
+    text:"How long should the show last?", 
+    options:[
+        { label:"⏱️ About 5 minutes", scores:{ family:3,color:1,boom:0,Finale:0,sky:1,legend:0,picasso:1,hollywood:0,professor:1,sweetTea:0,chaos:0,freedom:1 } },
+        { label:"⌛ About 10 minutes", scores:{ family:2,color:2,boom:1,Finale:1,sky:2,legend:1,picasso:1,hollywood:1,professor:2,sweetTea:0,chaos:0,freedom:2 } },
+        { label:"🎆 About 20 minutes", scores:{ family:1,color:2,boom:2,Finale:2,sky:3,legend:3,picasso:2,hollywood:3,professor:3,sweetTea:1,chaos:1,freedom:2 } },
+        { label:"🏆 About 30 minutes", scores:{ family:0,color:1,boom:3,Finale:4,sky:3,legend:4,picasso:1,hollywood:4,professor:2,sweetTea:3,chaos:3,freedom:3 } },
+        { label:"🍿 Until people start checking their watches", scores:{ family:0,color:1,boom:4,Finale:5,sky:2,legend:5,picasso:1,hollywood:4,professor:2,sweetTea:5,chaos:4,freedom:3 } }
+    ]
+},
+{ 
+    key:"crowd", 
+    text:"How many people are watching?", 
+    options:[
+        { label:"👫 Just us", scores:{ family:3,color:2,boom:0,Finale:0,sky:1,legend:0,picasso:1,hollywood:0,professor:1,sweetTea:0,chaos:0,freedom:1 } },
+        { label:"👨‍👩‍👧 10-20 people", scores:{ family:3,color:2,boom:1,Finale:1,sky:2,legend:1,picasso:1,hollywood:1,professor:1,sweetTea:0,chaos:0,freedom:2 } },
+        { label:"🎉 20-50 people", scores:{ family:1,color:2,boom:2,Finale:3,sky:3,legend:3,picasso:2,hollywood:3,professor:2,sweetTea:1,chaos:1,freedom:3 } },
+        { label:"📣 50+ people", scores:{ family:0,color:1,boom:3,Finale:4,sky:3,legend:4,picasso:1,hollywood:4,professor:2,sweetTea:3,chaos:3,freedom:4 } },
+        { label:"🗺️ Half the county", scores:{ family:0,color:1,boom:5,Finale:5,sky:3,legend:5,picasso:1,hollywood:5,professor:1,sweetTea:5,chaos:6,freedom:5 } }
+    ]
+},
+{ 
+    key:"ending", 
+    text:"What kind of ending do you want?", 
+    options:[
+        { label:"😊 A nice ending", scores:{ family:4,color:2,boom:0,Finale:1,sky:1,legend:0,picasso:1,hollywood:1,professor:1,sweetTea:0,chaos:0,freedom:1 } },
+        { label:"🎆 A big ending", scores:{ family:1,color:2,boom:2,Finale:4,sky:2,legend:3,picasso:1,hollywood:3,professor:1,sweetTea:1,chaos:1,freedom:2 } },
+        { label:"👏 An applause-worthy ending", scores:{ family:1,color:2,boom:2,Finale:5,sky:2,legend:4,picasso:1,hollywood:4,professor:1,sweetTea:2,chaos:2,freedom:3 } },
+        { label:"📱 An ending people record on their phones", scores:{ family:0,color:2,boom:3,Finale:6,sky:2,legend:5,picasso:2,hollywood:5,professor:1,sweetTea:3,chaos:3,freedom:3 } },
+        { label:"🚀 An ending that becomes family folklore", scores:{ family:0,color:1,boom:4,Finale:7,sky:2,legend:6,picasso:1,hollywood:5,professor:1,sweetTea:4,chaos:4,freedom:4 } }
+    ]
+}
+];
+
+// ============================================
+// QUIZ LOGIC - FIXED HOMEPAGE ISSUE
+// ============================================
+let answers = {};
+let currentQuestion = 0;
+let quizStarted = false;
+
+function startQuiz() {
+    quizStarted = true;
+    answers = {};
+    currentQuestion = 0;
+    showQuestion();
+}
+
+function showHomepage() {
+    // Show the homepage with the Start button
+    const content = document.getElementById("content");
+    content.innerHTML = `
+        <img src="https://raw.githubusercontent.com/tcullen-tc/sparky-firework-finder/main/Sparky%20image%20for%20github.png" alt="Sparky" class="sparky-image">
+        <p class="welcome-text">👋 Welcome to Sparky's Firework Finder!</p>
+        <p style="margin:16px 0;">Not sure what fireworks to buy? Let Sparky help you find the perfect fireworks for your show!</p>
+        
+        <div style="background:#1a2332; padding:16px; border-radius:1rem; margin:20px 0; border-left:4px solid #facc15;">
+            <p style="color:#94a3b8; font-size:0.9rem; margin-bottom:8px;">👇 <strong>START HERE</strong> 👇</p>
+            <button class="quiz-btn" onclick="startQuiz()" style="font-size:1.2rem; padding:18px;">🔥 Answer 9 Questions & Get Your Shopping List 🔥</button>
+            <p style="color:#94a3b8; font-size:0.8rem; margin-top:8px;">It only takes 2 minutes! We'll match you to the perfect fireworks.</p>
+        </div>
+        
+        <div class="pocket-change-card" style="margin-top:24px;">
+            <h3>🪙 ONLY GOT A FEW BUCKS? 🪙</h3>
+            <p style="margin:8px 0;"><strong>$5 - $10 budget?</strong> You can still have a blast!</p>
+            <button class="quiz-btn" onclick="showPocketChangeGuide()" style="background:#facc15; margin-top:10px;">💥 Show Me $5-$10 Fireworks Guide 💥</button>
+        </div>
+        <div class="tip-banner">✨ Did you know? A simple sparkler burns at 2000°F — but it won't rock the neighborhood! We'll match you to the right boom (or quiet sparkle).</div>
+    `;
+}
+
+function showQuestion() {
+    const q = questions[currentQuestion];
+    if (!q) return;
+    const progressPercent = ((currentQuestion) / questions.length) * 100;
+    let html = `<div class="progress-container"><div class="progress-fill" style="width: ${progressPercent}%;"></div></div>`;
+    html += `<h2>${q.text}</h2>`;
+    q.options.forEach((option, idx) => {
+        html += `<button class="quiz-btn" onclick="saveAnswer(${idx})">${option.label}</button>`;
+    });
+    html += `<button class="back-button" onclick="previousQuestion()">← Back</button>`;
+    html += `<p class="small">Question ${currentQuestion+1} of ${questions.length}</p>`;
+    document.getElementById("content").innerHTML = html;
+}
+
+function previousQuestion() {
+    if (currentQuestion > 0) {
+        currentQuestion--;
+        showQuestion();
+    }
+}
+
+function saveAnswer(optionIndex) {
+    const q = questions[currentQuestion];
+    if (!q || !q.options[optionIndex]) return;
+    answers[q.key] = q.options[optionIndex];
+    currentQuestion++;
+    if (currentQuestion < questions.length) {
+        showQuestion();
+    } else {
+        showRecommendation();
+    }
+}
+
+function calculateScores() {
+    let totals = {};
+    Object.keys(personalities).forEach(k => totals[k] = 0);
+    Object.values(answers).forEach(answer => {
+        if (answer && answer.scores) {
+            Object.keys(answer.scores).forEach(key => {
+                totals[key] += answer.scores[key];
+            });
+        }
+    });
+    return totals;
+}
+
+function getRankedPersonalities(scores) {
+    return Object.keys(scores).map(key => ({ key, score: scores[key], data: personalities[key] })).sort((a, b) => b.score - a.score);
+}
+
+function renderShoppingList(items) {
+    let html = `<div class="shopping-list"><h4>📝 Your Shopping List</h4><ul>`;
+    items.forEach(item => {
+        html += `<li><strong>${item.name}</strong> — <span class="price-tag">${item.price}</span><br><span style="font-size:0.9rem; color:#94a3b8;">${item.description}</span></li>`;
+    });
+    html += `</ul></div>`;
+    return html;
+}
+
+function showPocketChangeGuide() {
+    let html = `<button class="back-button" onclick="resetToHome()" style="margin-bottom: 12px;">← Back to Main</button>
+    <div class="pocket-change-card" style="background: linear-gradient(135deg, #1f3b2c, #0f2c22);">
+        <h2>🪙 Pocket Change Fireworks 🪙</h2>
+        <p style="font-size: 1.1rem; margin-bottom: 12px;"><strong>$5 – $10 budget?</strong> You can still have a blast!</p>
+        <div style="background:#0f172a; border-radius: 1rem; padding: 16px; text-align: left; margin: 16px 0;">
+            <h3>🎇 BEST BANG FOR YOUR BUCK ($5-10)</h3>
+            <ul style="margin-left: 20px; line-height: 1.6;">
+                <li><strong>🪄 Morning Glory / Glow Worm:</strong> Colorful ground fountains</li>
+                <li><strong>🐉 Dragon Eggs / Snaps:</strong> Hundreds of little pops</li>
+                <li><strong>🎆 Mini Fountain:</strong> Small shower of sparks & color</li>
+                <li><strong>💥 Crackling Balls / Tanks:</strong> Low altitude but crackles</li>
+                <li><strong>✨ Sparkler Assortment:</strong> Classic, great for photos</li>
+                <li><strong>🔥 Small Roman Candles:</strong> Small aerial pops</li>
+                <li><strong>🧨 Saturn Missile Batteries:</strong> Whistling missiles</li>
+                <li><strong>🌈 Color Smoke Balls:</strong> Huge colored smoke clouds</li>
+            </ul>
+            <div style="background:#1a2332; padding:12px; border-radius:1rem; margin-top:16px;">
+                💡 <strong>Sparky's Tip:</strong> For $10 you can get 2 fountains + sparklers = 5 minutes of fun!
+            </div>
+        </div>
+        <button class="quiz-btn" onclick="resetToHome()" style="background:#facc15;">⬅️ Back to Firework Quiz</button>
+    </div>`;
+    document.getElementById("content").innerHTML = html;
+}
+
+function resetToHome() {
+    quizStarted = false;
+    answers = {};
+    currentQuestion = 0;
+    showHomepage();
+}
+
+function shareResult(personalityName) {
+    const text = `🎆 I'm a ${personalityName} according to Sparky Firework Finder! Get your free shopping list at the fireworks stand in the Smoker Friendly Liquor Store parking lot - NE corner of Jeffers St & Philips Ave! 🧨✨`;
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(() => alert("🎇 Result copied! Share with friends!")).catch(() => alert("Copy this: " + text));
+    } else {
+        alert("Copy this: " + text);
+    }
+}
+
+function showRecommendation() {
+    const scores = calculateScores();
+    const ranked = getRankedPersonalities(scores);
+    const primary = ranked[0];
+    
+    const budgetKey = answers.budget?.budgetKey || "under50";
+    const audienceKey = answers.audience?.audienceKey || "family";
+    const personalityKey = primary.key;
+    
+    const shoppingItems = getShoppingList(budgetKey, audienceKey, personalityKey);
+    
+    const joke = salesmanJokes[Math.floor(Math.random() * salesmanJokes.length)];
+    const safetyTip = safetyTips[Math.floor(Math.random() * safetyTips.length)];
+
+    let html = `
+    <h2>🎖️ Your Firework Personality</h2>
+    <div style="text-align:center; margin: 10px 0;">
+        <span style="font-size:3rem;">${primary.data.emoji}</span>
+        <h3 style="border-left:none; text-align:center;">${primary.data.name}</h3>
+        <p style="color:#94a3b8; font-size:0.95rem;">${primary.data.description}</p>
+    </div>
+    
+    <div class="result-box">
+        ${renderShoppingList(shoppingItems)}
+        
+        <div class="salesman-humor">
+            👓 <strong>Salesman Tip:</strong> ${joke}
+        </div>
+        
+        <div class="safety-card" style="margin-top:16px;">
+            🔥 ${safetyTip}
+        </div>
+        
+        <div style="background:#1a2332; padding:12px; border-radius:1rem; margin-top:16px; text-align:center;">
+            <p><strong>📱 Show this list to a salesperson</strong><br>They'll help you find exactly what's on your list!</p>
+            <p style="margin-top:8px; color:#facc15; font-size:0.9rem;">
+                🎁 <strong>FREE FIREWORK CHALLENGE:</strong><br>
+                Make the older guy with glasses laugh with a joke and get a FREE mystery firework!*
+            </p>
+        </div>
+    </div>
+    
+    <div class="action-buttons">
+        <button class="quiz-btn" onclick="shareResult('${primary.data.name}')">📤 Share My List</button>
+        <button class="quiz-btn" onclick="resetToHome()">🔄 Start Over</button>
+    </div>
+    
+    <div class="stand-info">
+        🎆 FIND US AT THE FIREWORKS STAND! 🎆<br>
+        📍 <strong>Northeast corner of Jeffers St & Philips Ave</strong><br>
+        🅿️ In the <strong>Smoker Friendly Liquor Store</strong> parking lot<br>
+        🎁 <em>*While supplies last. Challenge may or may not be real. But he does love a good joke!</em>
+    </div>`;
+    
+    document.getElementById("content").innerHTML = html;
+}
+
+// ============================================
+// START: Show Homepage When Page Loads
+// ============================================
+document.addEventListener('DOMContentLoaded', function() {
+    showHomepage();
+});
+</script>
+</body>
+</html>
