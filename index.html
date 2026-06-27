@@ -72,67 +72,79 @@ const personalities = {
     family: { 
         name:"Neighborhood Favorite", 
         emoji:"😇",
-        description:"You enjoy fireworks that bring smiles and memories without turning the neighborhood Facebook page into a debate."
+        description:"You enjoy fireworks that bring smiles and memories without turning the neighborhood Facebook page into a debate.",
+        vibe: "family"
     },
     color: { 
         name:"Color Chaser", 
         emoji:"🎇",
-        description:"You care more about beautiful colors than raw noise. Every firework should look like a painting."
+        description:"You care more about beautiful colors than raw noise. Every firework should look like a painting.",
+        vibe: "color"
     },
     boom: { 
         name:"Boom Seeker", 
         emoji:"💥",
-        description:"You believe fireworks should be experienced with your entire rib cage."
+        description:"You believe fireworks should be experienced with your entire rib cage.",
+        vibe: "boom"
     },
     finale: { 
         name:"Finale Master", 
         emoji:"👑",
-        description:"You're building toward a finish that people will remember long after the smoke clears."
+        description:"You're building toward a finish that people will remember long after the smoke clears.",
+        vibe: "premium"
     },
     sky: { 
         name:"Sky Commander", 
         emoji:"🚀",
-        description:"You like a balanced show with lots happening overhead."
+        description:"You like a balanced show with lots happening overhead.",
+        vibe: "balanced"
     },
     legend: { 
         name:"Backyard Legend", 
         emoji:"🧨",
-        description:"You're trying to put on the show people compare every future show against."
+        description:"You're trying to put on the show people compare every future show against.",
+        vibe: "premium"
     },
     picasso: { 
         name:"Pyro Artist", 
         emoji:"🎨",
-        description:"You appreciate beauty, timing, color, and creativity."
+        description:"You appreciate beauty, timing, color, and creativity.",
+        vibe: "color"
     },
     hollywood: { 
         name:"Show Producer", 
         emoji:"🎬",
-        description:"You think fireworks should have pacing, drama, and a memorable climax."
+        description:"You think fireworks should have pacing, drama, and a memorable climax.",
+        vibe: "premium"
     },
     professor: { 
         name:"Pyro Professor", 
         emoji:"🔥",
-        description:"You appreciate variety and know that a good show isn't just noise."
+        description:"You appreciate variety and know that a good show isn't just noise.",
+        vibe: "balanced"
     },
     sweetTea: { 
         name:"Adventurer", 
         emoji:"🤪",
-        description:"You checked every exciting answer and Sparky is mildly concerned."
+        description:"You checked every exciting answer and Sparky is mildly concerned.",
+        vibe: "fun"
     },
     chaos: { 
         name:"Captain Chaos", 
         emoji:"🏴‍☠️",
-        description:"You selected maximum enthusiasm at nearly every opportunity."
+        description:"You selected maximum enthusiasm at nearly every opportunity.",
+        vibe: "premium"
     },
     freedom: { 
         name:"Freedom Amplifier", 
         emoji:"🇺🇸",
-        description:"You believe fireworks are an important part of celebrating Independence Day."
+        description:"You believe fireworks are an important part of celebrating Independence Day.",
+        vibe: "patriotic"
     }
 };
 
 // ============================================
-// YOUR ACTUAL INVENTORY WITH TIERS
+// YOUR ACTUAL INVENTORY WITH TIERS + VIBE
 // ============================================
 const products = {
     // === PREMIUM 500g CAKES ($100+) ===
@@ -141,77 +153,77 @@ const products = {
         price: "$150", 
         description: "Premium 500g cake with artistic color effects and beautiful displays.",
         tiers: ["large", "premium", "ultimate"],
-        category: "premium"
+        vibe: "premium"
     },
     fireOverWater: { 
         name: "Fire Over Water", 
         price: "$130", 
         description: "Unique 500g cake with effects that appear to dance over the ground.",
         tiers: ["large", "premium", "ultimate"],
-        category: "premium"
+        vibe: "premium"
     },
     amazingBallet: { 
         name: "Amazing Ballet", 
         price: "$130", 
         description: "Graceful aerial effects that dance across the sky like a ballet.",
         tiers: ["large", "premium", "ultimate"],
-        category: "premium"
+        vibe: "premium"
     },
     pureVenom: { 
         name: "Pure Venom", 
         price: "$120", 
         description: "Powerful 500g cake with intense color and crackling effects.",
         tiers: ["large", "premium", "ultimate"],
-        category: "premium"
+        vibe: "premium"
     },
     growler: { 
         name: "Growler", 
         price: "$120", 
         description: "Loud, aggressive effects that will make the ground shake.",
         tiers: ["large", "premium", "ultimate"],
-        category: "premium"
+        vibe: "boom"
     },
     avengersCake: { 
         name: "Avengers", 
         price: "$115", 
         description: "Superhero-themed effects with powerful breaks and vibrant colors.",
         tiers: ["large", "premium", "ultimate"],
-        category: "premium"
+        vibe: "premium"
     },
     badReputation: { 
         name: "Bad Reputation", 
         price: "$110", 
         description: "Rowdy effects for those who want to make some noise.",
         tiers: ["large", "premium", "ultimate"],
-        category: "premium"
+        vibe: "boom"
     },
     excalibur: { 
         name: "Excalibur Artillery Shells", 
         price: "$110", 
         description: "24 powerful canister shells with massive aerial booms and colorful breaks. A legendary top seller!",
         tiers: ["medium", "large", "premium", "ultimate"],
-        category: "premium"
+        vibe: "boom"
     },
     gorilla: { 
         name: "Gorilla Cake", 
         price: "$110", 
         description: "40 powerful shots that fan out across the sky with color and loud effects for a full minute.",
         tiers: ["large", "premium", "ultimate"],
-        category: "premium"
+        vibe: "boom"
     },
     rainMaker: { 
         name: "Rain Maker", 
         price: "$90", 
         description: "Colorful effects that rain down like a sparkling waterfall.",
         tiers: ["medium", "large", "premium", "ultimate"],
-        category: "midrange"
+        vibe: "color"
     },
     offTheHook: { 
         name: "Off the Hook", 
         price: "$90", 
         description: "Wild effects that are absolutely off the hook!",
         tiers: ["medium", "large", "premium", "ultimate"],
-        category: "midrange"
+        vibe: "fun"
     },
 
     // === MID-RANGE 500g CAKES ($50-$100) ===
@@ -220,42 +232,42 @@ const products = {
         price: "$85", 
         description: "60-shot 500g cake with mesmerizing red, green, and blue crackle tails and willow effects.",
         tiers: ["medium", "large", "premium", "ultimate"],
-        category: "midrange"
+        vibe: "color"
     },
     merlin: { 
         name: "Merlin", 
         price: "$70", 
         description: "30-shot magical themed cake with crackling stars and multicolored effects.",
         tiers: ["medium", "large", "premium", "ultimate"],
-        category: "midrange"
+        vibe: "color"
     },
     avenger: { 
         name: "5\" Laser Avenger 60 Gram", 
         price: "$70", 
         description: "Premium 60g cake with 5-inch shell effects. Powerful and colorful display.",
         tiers: ["medium", "large", "premium", "ultimate"],
-        category: "midrange"
+        vibe: "premium"
     },
     footballMania: { 
         name: "Football Mania", 
         price: "$70", 
         description: "Cheer on your team with these energetic effects.",
         tiers: ["medium", "large", "premium", "ultimate"],
-        category: "midrange"
+        vibe: "fun"
     },
     kingArthur: { 
         name: "King Arthur", 
         price: "$60", 
         description: "Classic artillery shell kit with powerful breaks and colorful effects.",
         tiers: ["medium", "large", "premium", "ultimate"],
-        category: "midrange"
+        vibe: "boom"
     },
     ladiesNight: { 
         name: "Ladies Night", 
         price: "$60", 
         description: "Colorful effects perfect for a girls' night out celebration.",
         tiers: ["medium", "large", "premium", "ultimate"],
-        category: "midrange"
+        vibe: "color"
     },
 
     // === 200g CAKES & NOVELTIES ($15-$50) ===
@@ -264,280 +276,280 @@ const products = {
         price: "$30", 
         description: "Fun, colorful effects that will keep everyone entertained.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "fun"
     },
     silverScreen: { 
         name: "Silver Screen", 
         price: "$25", 
         description: "Hollywood-style effects with silver and gold breaks.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "color"
     },
     blingBling: { 
         name: "Bling Bling", 
         price: "$20", 
         description: "Glittering effects that sparkle like diamonds in the sky.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "color"
     },
     packAPunch: { 
         name: "Pack a Punch", 
         price: "$22", 
         description: "Small but mighty effects that pack a surprising punch.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "boom"
     },
     starBurned: { 
         name: "Star Burned", 
         price: "$30", 
         description: "Brilliant star effects that burn bright in the night sky.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "color"
     },
     nineLives: { 
         name: "9 Lives", 
         price: "$8", 
         description: "Fun little effects that keep going and going.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "fun"
     },
     graffiti: { 
         name: "Graffiti", 
         price: "$35", 
         description: "Colorful effects that paint the sky like street art.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "color"
     },
     grapesOverVinylard: { 
         name: "Grapes Over Vinylard", 
         price: "$10", 
         description: "Unique purple and green effects inspired by vineyards.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "color"
     },
     xos: { 
         name: "XO's", 
         price: "$30", 
         description: "Hugs and kisses effects - love-themed fireworks!",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "fun"
     },
     brainDamaged: { 
         name: "Brain Damaged", 
         price: "$20", 
         description: "Crazy, unpredictable effects that will make you go... wait, what?",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "fun"
     },
     saturdayMissiles: { 
         name: "300 Shot Saturday Missiles", 
         price: "$18", 
         description: "300 whistling missiles that zoom across the sky!",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "fun"
     },
     irishTwins: { 
         name: "Irish Twins", 
         price: "$30", 
         description: "Two effects that follow each other like siblings.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "fun"
     },
     forOurFlag: { 
         name: "For Our Flag", 
         price: "$12", 
         description: "Patriotic red, white, and blue effects.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "patriotic"
     },
     smileAwhile: { 
         name: "Smile Awhile", 
         price: "$10", 
         description: "Effects that will put a smile on everyone's face.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "family"
     },
     luckyLeprechaun: { 
         name: "Lucky Leprechaun", 
         price: "$8", 
         description: "Green-themed effects for good luck!",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "fun"
     },
     rainbowSnow: { 
         name: "Rainbow Snow Cone", 
         price: "$20", 
         description: "Colorful effects that look like a rainbow snow cone.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "color"
     },
     luckOfIrish: { 
         name: "Luck of the Irish", 
         price: "$25", 
         description: "More green effects for those feeling lucky.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "fun"
     },
     cowboyWorld: { 
         name: "Cowboy World", 
         price: "$25", 
         description: "Western-themed effects with a wild west flair.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "fun"
     },
     starburst: { 
         name: "Starburst", 
         price: "$35", 
         description: "Colorful starburst effects that light up the sky.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "color"
     },
     foolsGold: { 
         name: "Fools Gold", 
         price: "$12", 
         description: "Golden effects that look like treasure in the sky.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "color"
     },
     midSummerDream: { 
         name: "Mid Summer Dream", 
         price: "$10", 
         description: "Dreamy effects perfect for warm summer nights.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "color"
     },
     gloryDays: { 
         name: "Glory Days", 
         price: "$12", 
         description: "Celebrate the good old days with these classic effects.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "family"
     },
     goGirl: { 
         name: "Go Girl", 
         price: "$12", 
         description: "Empowering effects for the ladies!",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "fun"
     },
     atfAmericanHero: { 
         name: "ATF American Hero", 
         price: "$10", 
         description: "Patriotic effects honoring American heroes.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "patriotic"
     },
     hunaChick: { 
         name: "Huna Chick", 
         price: "$12", 
         description: "Fun Hawaiian-themed effects.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "fun"
     },
     heavyHitter: { 
         name: "Heavy Hitter", 
         price: "$15", 
         description: "Packs a punch for its size!",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "boom"
     },
     casino: { 
         name: "Casino", 
         price: "$15", 
         description: "Lucky effects for the gamblers out there.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "fun"
     },
     hillbillyHotTub: { 
         name: "Hillbilly Hot Tub", 
         price: "$15", 
         description: "Fun, relaxed effects for a laid-back show.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "fun"
     },
     saturnMissile: { 
         name: "100 Shot Saturn Missile", 
         price: "$10", 
         description: "100 whistling missiles in one tube!",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "fun"
     },
     rotoRoosters: { 
         name: "Roto Roosters", 
         price: "$15", 
         description: "Spinning effects that fly in circles.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "fun"
     },
     smokeSky: { 
         name: "Smoke Sky", 
         price: "$15", 
         description: "Colorful smoke clouds for daytime fun.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "family"
     },
     smokeTubes: { 
         name: "Smoke Tubes", 
         price: "$15", 
         description: "Simple tubes that release colorful smoke.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "family"
     },
     tadPoles: { 
         name: "Tad Poles", 
         price: "$15", 
         description: "Small jumping effects that hop like tadpoles.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "fun"
     },
     largeSmokeBombs: { 
         name: "Large Smoke Bombs", 
         price: "$5.50", 
         description: "Big colorful smoke clouds for daytime fun.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "family"
     },
     lightningRound: { 
         name: "Lightning Round", 
         price: "$4", 
         description: "Quick, bright flashes like lightning bolts.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "fun"
     },
     mamasParachutes: { 
         name: "Mamma's Parachutes", 
         price: "$4", 
         description: "Floating parachutes with colorful lights.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "family"
     },
     gardenSpring: { 
         name: "Garden in Spring", 
         price: "$6", 
         description: "Colorful effects that look like flowers blooming.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "color"
     },
     dessertNight: { 
         name: "Dessert at Night", 
         price: "$6", 
         description: "Sweet effects perfect for ending the night.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "family"
     },
     strongFountain: { 
         name: "World's Strongest Fountain", 
         price: "$25", 
         description: "Powerful fountain that shoots high and lasts long.",
         tiers: ["small", "medium", "large", "premium", "ultimate"],
-        category: "novelty"
+        vibe: "color"
     }
 };
 
 // ============================================
 // IMPROVED SHOPPING LIST FUNCTION
 // ============================================
-function getShoppingList(budgetKey, audienceKey) {
+function getShoppingList(budgetKey, audienceKey, primaryPersonalityKey) {
     // Map budget key to tier
     let tier = "small";
     if (budgetKey === "under50") tier = "small";
@@ -553,12 +565,13 @@ function getShoppingList(budgetKey, audienceKey) {
     else if (audienceKey === "bbq") ageGroup = "party";
     else if (audienceKey === "adults") ageGroup = "adult";
 
+    // Get the personality's vibe
+    const personality = personalities[primaryPersonalityKey];
+    const vibe = personality ? personality.vibe : "balanced";
+
     // --- Define the master product list for each age group ---
-    // These are products that match the general vibe of each audience.
-    // The final selection will be filtered by budget tier and prioritized.
     const allProducts = {
         kids: [
-            // Kid-friendly products (quiet, colorful, safe)
             products.smokeTubes,
             products.largeSmokeBombs,
             products.mamasParachutes,
@@ -581,7 +594,6 @@ function getShoppingList(budgetKey, audienceKey) {
             products.blingBling
         ],
         family: [
-            // Family-friendly mix
             products.smokeTubes,
             products.largeSmokeBombs,
             products.mamasParachutes,
@@ -600,11 +612,10 @@ function getShoppingList(budgetKey, audienceKey) {
             products.merlin,
             products.kingArthur,
             products.avenger,
-            products.excalibur,      // For families with a bigger budget
+            products.excalibur,
             products.gorilla
         ],
         party: [
-            // Party crowd - exciting, crowd pleasers
             products.saturdayMissiles,
             products.smokeTubes,
             products.crazyExciting,
@@ -624,11 +635,10 @@ function getShoppingList(budgetKey, audienceKey) {
             products.gorilla,
             products.rainMaker,
             products.offTheHook,
-            products.fireOverWater,   // High-end for parties
+            products.fireOverWater,
             products.mickalangelos
         ],
         adult: [
-            // Adults - everything goes
             products.smokeTubes,
             products.largeSmokeBombs,
             products.mamasParachutes,
@@ -678,15 +688,18 @@ function getShoppingList(budgetKey, audienceKey) {
         ]
     };
 
-    // Get the product list for this age group
     let availableProducts = allProducts[ageGroup] || allProducts.adult;
 
     // --- STEP 1: Filter by budget tier ---
     let tieredProducts = availableProducts.filter(product => product.tiers.includes(tier));
 
-    // --- STEP 2: Ensure premium products are included for high tiers ---
-    if (tier === "large" || tier === "premium" || tier === "ultimate") {
-        // Force include all premium products that fit the age group
+    // --- STEP 2: Boost products based on personality vibe ---
+    // For premium personalities (Legend, Finale, Hollywood, Chaos), prioritize the best products
+    const premiumVibes = ["premium", "boom"];
+    const isPremiumPersonality = premiumVibes.includes(vibe);
+
+    if (isPremiumPersonality && (tier === "large" || tier === "premium" || tier === "ultimate")) {
+        // Get all premium products that fit this age group and tier
         const premiumKeys = ["mickalangelos", "fireOverWater", "amazingBallet", "pureVenom", "growler", "avengersCake", "badReputation", "excalibur", "gorilla"];
         const premiumProducts = premiumKeys
             .map(key => products[key])
@@ -700,27 +713,69 @@ function getShoppingList(budgetKey, audienceKey) {
         });
     }
 
-    // --- STEP 3: Sort by price (high to low) for premium tiers, but mix for others ---
-    if (tier === "premium" || tier === "ultimate") {
+    // --- STEP 3: Boost products based on specific personality needs ---
+    if (primaryPersonalityKey === "legend" || primaryPersonalityKey === "chaos" || primaryPersonalityKey === "finale") {
+        // These personalities want the absolute best - force all premium products to the top
+        const premiumKeys = ["mickalangelos", "fireOverWater", "amazingBallet", "pureVenom", "growler", "avengersCake", "badReputation", "excalibur", "gorilla"];
+        const premiumProducts = premiumKeys
+            .map(key => products[key])
+            .filter(p => p && availableProducts.includes(p) && p.tiers.includes(tier));
+
+        premiumProducts.forEach(p => {
+            if (!tieredProducts.includes(p)) {
+                tieredProducts.push(p);
+            }
+        });
+
+        // Sort by price (high to low) for these personalities
         tieredProducts.sort((a, b) => {
             const priceA = parseFloat(a.price.replace('$', ''));
             const priceB = parseFloat(b.price.replace('$', ''));
             return priceB - priceA;
         });
+    } else if (vibe === "boom") {
+        // Boom seekers get boom products first, then others
+        tieredProducts.sort((a, b) => {
+            const aIsBoom = a.vibe === "boom" ? 1 : 0;
+            const bIsBoom = b.vibe === "boom" ? 1 : 0;
+            if (aIsBoom !== bIsBoom) return bIsBoom - aIsBoom;
+            const priceA = parseFloat(a.price.replace('$', ''));
+            const priceB = parseFloat(b.price.replace('$', ''));
+            return priceB - priceA;
+        });
+    } else if (vibe === "color") {
+        // Color chasers get color products first
+        tieredProducts.sort((a, b) => {
+            const aIsColor = a.vibe === "color" ? 1 : 0;
+            const bIsColor = b.vibe === "color" ? 1 : 0;
+            if (aIsColor !== bIsColor) return bIsColor - aIsColor;
+            const priceA = parseFloat(a.price.replace('$', ''));
+            const priceB = parseFloat(b.price.replace('$', ''));
+            return priceB - priceA;
+        });
+    } else if (vibe === "family") {
+        // Family favorites get family-friendly products first
+        tieredProducts.sort((a, b) => {
+            const aIsFamily = a.vibe === "family" ? 1 : 0;
+            const bIsFamily = b.vibe === "family" ? 1 : 0;
+            if (aIsFamily !== bIsFamily) return bIsFamily - aIsFamily;
+            return 0;
+        });
     } else {
-        // Shuffle to provide variety
-        tieredProducts.sort(() => Math.random() - 0.5);
+        // For other personalities, sort by price for premium tiers
+        if (tier === "premium" || tier === "ultimate") {
+            tieredProducts.sort((a, b) => {
+                const priceA = parseFloat(a.price.replace('$', ''));
+                const priceB = parseFloat(b.price.replace('$', ''));
+                return priceB - priceA;
+            });
+        } else {
+            // Shuffle for variety
+            tieredProducts.sort(() => Math.random() - 0.5);
+        }
     }
 
-    // --- STEP 4: Select the top items based on budget tier ---
-    let itemCount = 4;
-    if (tier === "small") itemCount = 4;
-    else if (tier === "medium") itemCount = 5;
-    else if (tier === "large") itemCount = 6;
-    else if (tier === "premium") itemCount = 7;
-    else if (tier === "ultimate") itemCount = 8;
-
-    // Deduplicate the list just in case
+    // --- STEP 4: Deduplicate ---
     const uniqueItems = [];
     const seenNames = new Set();
     for (const item of tieredProducts) {
@@ -730,27 +785,33 @@ function getShoppingList(budgetKey, audienceKey) {
         }
     }
 
-    // Take the top items
+    // --- STEP 5: Select the top items ---
+    let itemCount = 4;
+    if (tier === "small") itemCount = 4;
+    else if (tier === "medium") itemCount = 5;
+    else if (tier === "large") itemCount = 6;
+    else if (tier === "premium") itemCount = 7;
+    else if (tier === "ultimate") itemCount = 8;
+
     let selectedItems = uniqueItems.slice(0, Math.min(itemCount, uniqueItems.length));
 
-    // --- STEP 5: Fallback if not enough items ---
+    // --- STEP 6: Fallback if not enough items ---
     if (selectedItems.length < 4) {
         const genericItems = [
-            { name: "Sparkler Variety Pack", price: "$8", description: "Colorful sparklers perfect for everyone!", tiers: ["small", "medium", "large", "premium", "ultimate"], category: "novelty" },
-            { name: "Snap Pop Mega Pack", price: "$5", description: "Hours of popping fun for the whole family!", tiers: ["small", "medium", "large", "premium", "ultimate"], category: "novelty" }
+            { name: "Sparkler Variety Pack", price: "$8", description: "Colorful sparklers perfect for everyone!", tiers: ["small", "medium", "large", "premium", "ultimate"], vibe: "family" },
+            { name: "Snap Pop Mega Pack", price: "$5", description: "Hours of popping fun for the whole family!", tiers: ["small", "medium", "large", "premium", "ultimate"], vibe: "family" }
         ];
         while (selectedItems.length < 4) {
             const fallback = genericItems[selectedItems.length % genericItems.length];
             if (!selectedItems.find(item => item.name === fallback.name)) {
                 selectedItems.push(fallback);
             } else {
-                // If both are already added, create a new unique one
                 selectedItems.push({
                     name: `Firework ${selectedItems.length + 1}`,
                     price: "$10",
                     description: "A great addition to your show!",
                     tiers: ["small", "medium", "large", "premium", "ultimate"],
-                    category: "novelty"
+                    vibe: "fun"
                 });
             }
         }
@@ -1013,9 +1074,10 @@ function showRecommendation() {
     // Get budget and audience keys
     const budgetKey = answers.budget?.budgetKey || "under50";
     const audienceKey = answers.audience?.audienceKey || "family";
+    const personalityKey = primary.key;
     
-    // Get shopping list based on budget and audience
-    const shoppingItems = getShoppingList(budgetKey, audienceKey);
+    // Get shopping list based on budget, audience, and personality
+    const shoppingItems = getShoppingList(budgetKey, audienceKey, personalityKey);
     
     // Random salesman joke
     const joke = salesmanJokes[Math.floor(Math.random() * salesmanJokes.length)];
