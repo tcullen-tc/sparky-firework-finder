@@ -72,399 +72,291 @@ const personalities = {
     family: { 
         name:"Neighborhood Favorite", 
         emoji:"😇",
-        description:"You enjoy fireworks that bring smiles and memories without turning the neighborhood Facebook page into a debate."
+        description:"You enjoy fireworks that bring smiles and memories without turning the neighborhood Facebook page into a debate.",
+        level: "kids"
     },
     color: { 
         name:"Color Chaser", 
         emoji:"🎇",
-        description:"You care more about beautiful colors than raw noise. Every firework should look like a painting."
+        description:"You care more about beautiful colors than raw noise. Every firework should look like a painting.",
+        level: "mid"
     },
     boom: { 
         name:"Boom Seeker", 
         emoji:"💥",
-        description:"You believe fireworks should be experienced with your entire rib cage."
+        description:"You believe fireworks should be experienced with your entire rib cage.",
+        level: "high"
     },
     finale: { 
         name:"Finale Master", 
         emoji:"👑",
-        description:"You're building toward a finish that people will remember long after the smoke clears."
+        description:"You're building toward a finish that people will remember long after the smoke clears.",
+        level: "premium"
     },
     sky: { 
         name:"Sky Commander", 
         emoji:"🚀",
-        description:"You like a balanced show with lots happening overhead."
+        description:"You like a balanced show with lots happening overhead.",
+        level: "mid"
     },
     legend: { 
         name:"Backyard Legend", 
         emoji:"🧨",
-        description:"You're trying to put on the show people compare every future show against."
+        description:"You're trying to put on the show people compare every future show against.",
+        level: "legend"
     },
     picasso: { 
         name:"Pyro Artist", 
         emoji:"🎨",
-        description:"You appreciate beauty, timing, color, and creativity."
+        description:"You appreciate beauty, timing, color, and creativity.",
+        level: "mid"
     },
     hollywood: { 
         name:"Show Producer", 
         emoji:"🎬",
-        description:"You think fireworks should have pacing, drama, and a memorable climax."
+        description:"You think fireworks should have pacing, drama, and a memorable climax.",
+        level: "premium"
     },
     professor: { 
         name:"Pyro Professor", 
         emoji:"🔥",
-        description:"You appreciate variety and know that a good show isn't just noise."
+        description:"You appreciate variety and know that a good show isn't just noise.",
+        level: "mid"
     },
     sweetTea: { 
         name:"Adventurer", 
         emoji:"🤪",
-        description:"You checked every exciting answer and Sparky is mildly concerned."
+        description:"You checked every exciting answer and Sparky is mildly concerned.",
+        level: "high"
     },
     chaos: { 
         name:"Captain Chaos", 
         emoji:"🏴‍☠️",
-        description:"You selected maximum enthusiasm at nearly every opportunity."
+        description:"You selected maximum enthusiasm at nearly every opportunity.",
+        level: "legend"
     },
     freedom: { 
         name:"Freedom Amplifier", 
         emoji:"🇺🇸",
-        description:"You believe fireworks are an important part of celebrating Independence Day."
+        description:"You believe fireworks are an important part of celebrating Independence Day.",
+        level: "mid"
     }
 };
 
 // ============================================
-// YOUR ACTUAL INVENTORY
+// YOUR ACTUAL INVENTORY WITH PRICE TIERS
 // ============================================
 const products = {
-    // === PREMIUM 500g CAKES ($100+) ===
-    mickalangelos: { 
-        name: "Mickalangelo's", 
-        price: "$150", 
-        description: "Premium 500g cake with artistic color effects and beautiful displays.",
-        tier: "premium",
-        category: "cake"
-    },
-    fireOverWater: { 
-        name: "Fire Over Water", 
-        price: "$130", 
-        description: "Unique 500g cake with effects that appear to dance over the ground.",
-        tier: "premium",
-        category: "cake"
-    },
-    amazingBallet: { 
-        name: "Amazing Ballet", 
-        price: "$130", 
-        description: "Graceful aerial effects that dance across the sky like a ballet.",
-        tier: "premium",
-        category: "cake"
-    },
-    pureVenom: { 
-        name: "Pure Venom", 
-        price: "$120", 
-        description: "Powerful 500g cake with intense color and crackling effects.",
-        tier: "premium",
-        category: "cake"
-    },
-    growler: { 
-        name: "Growler", 
-        price: "$120", 
-        description: "Loud, aggressive effects that will make the ground shake.",
-        tier: "premium",
-        category: "cake"
-    },
-    avengersCake: { 
-        name: "Avengers", 
-        price: "$115", 
-        description: "Superhero-themed effects with powerful breaks and vibrant colors.",
-        tier: "premium",
-        category: "cake"
-    },
-    badReputation: { 
-        name: "Bad Reputation", 
-        price: "$110", 
-        description: "Rowdy effects for those who want to make some noise.",
-        tier: "premium",
-        category: "cake"
-    },
-    excalibur: { 
-        name: "Excalibur Artillery Shells", 
-        price: "$110", 
-        description: "24 powerful canister shells with massive aerial booms and colorful breaks. A legendary top seller!",
-        tier: "premium",
-        category: "shells"
-    },
-    gorilla: { 
-        name: "Gorilla Cake", 
-        price: "$110", 
-        description: "40 powerful shots that fan out across the sky with color and loud effects for a full minute.",
-        tier: "premium",
-        category: "cake"
-    },
+    // === HIGHEST PRICED ($90-$150) ===
+    mickalangelos: { name: "Mickalangelo's", price: "$150", description: "Premium 500g cake with artistic color effects and beautiful displays.", tier: "high" },
+    fireOverWater: { name: "Fire Over Water", price: "$130", description: "Unique 500g cake with effects that appear to dance over the ground.", tier: "high" },
+    amazingBallet: { name: "Amazing Ballet", price: "$130", description: "Graceful aerial effects that dance across the sky like a ballet.", tier: "high" },
+    pureVenom: { name: "Pure Venom", price: "$120", description: "Powerful 500g cake with intense color and crackling effects.", tier: "high" },
+    growler: { name: "Growler", price: "$120", description: "Loud, aggressive effects that will make the ground shake.", tier: "high" },
+    avengersCake: { name: "Avengers", price: "$115", description: "Superhero-themed effects with powerful breaks and vibrant colors.", tier: "high" },
+    badReputation: { name: "Bad Reputation", price: "$110", description: "Rowdy effects for those who want to make some noise.", tier: "high" },
+    excalibur: { name: "Excalibur Artillery Shells", price: "$110", description: "24 powerful canister shells with massive aerial booms. A legendary top seller!", tier: "high" },
+    gorilla: { name: "Gorilla Cake", price: "$110", description: "40 powerful shots that fan out across the sky with color and loud effects.", tier: "high" },
+    rainMaker: { name: "Rain Maker", price: "$90", description: "Colorful effects that rain down like a sparkling waterfall.", tier: "high" },
+    offTheHook: { name: "Off the Hook", price: "$90", description: "Wild effects that are absolutely off the hook!", tier: "high" },
 
-    // === MID-RANGE 500g CAKES ($50-$100) ===
-    rainMaker: { 
-        name: "Rain Maker", 
-        price: "$90", 
-        description: "Colorful effects that rain down like a sparkling waterfall.",
-        tier: "mid",
-        category: "cake"
-    },
-    offTheHook: { 
-        name: "Off the Hook", 
-        price: "$90", 
-        description: "Wild effects that are absolutely off the hook!",
-        tier: "mid",
-        category: "cake"
-    },
-    snakeCharmer: { 
-        name: "Snake Charmer", 
-        price: "$85", 
-        description: "60-shot 500g cake with mesmerizing red, green, and blue crackle tails and willow effects.",
-        tier: "mid",
-        category: "cake"
-    },
-    merlin: { 
-        name: "Merlin", 
-        price: "$70", 
-        description: "30-shot magical themed cake with crackling stars and multicolored effects.",
-        tier: "mid",
-        category: "cake"
-    },
-    avenger: { 
-        name: "5\" Laser Avenger 60 Gram", 
-        price: "$70", 
-        description: "Premium 60g cake with 5-inch shell effects. Powerful and colorful display.",
-        tier: "mid",
-        category: "cake"
-    },
-    footballMania: { 
-        name: "Football Mania", 
-        price: "$70", 
-        description: "Cheer on your team with these energetic effects.",
-        tier: "mid",
-        category: "cake"
-    },
-    kingArthur: { 
-        name: "King Arthur", 
-        price: "$60", 
-        description: "Classic artillery shell kit with powerful breaks and colorful effects.",
-        tier: "mid",
-        category: "shells"
-    },
-    ladiesNight: { 
-        name: "Ladies Night", 
-        price: "$60", 
-        description: "Colorful effects perfect for a girls' night out celebration.",
-        tier: "mid",
-        category: "cake"
-    },
+    // === MEDIUM PRICED ($30-$90) ===
+    snakeCharmer: { name: "Snake Charmer", price: "$85", description: "60-shot 500g cake with mesmerizing red, green, and blue crackle tails.", tier: "medium" },
+    merlin: { name: "Merlin", price: "$70", description: "30-shot magical themed cake with crackling stars and multicolored effects.", tier: "medium" },
+    avenger: { name: "5\" Laser Avenger 60 Gram", price: "$70", description: "Premium 60g cake with 5-inch shell effects. Powerful and colorful display.", tier: "medium" },
+    footballMania: { name: "Football Mania", price: "$70", description: "Cheer on your team with these energetic effects.", tier: "medium" },
+    kingArthur: { name: "King Arthur", price: "$60", description: "Classic artillery shell kit with powerful breaks and colorful effects.", tier: "medium" },
+    ladiesNight: { name: "Ladies Night", price: "$60", description: "Colorful effects perfect for a girls' night out celebration.", tier: "medium" },
+    crazyExciting: { name: "Crazy Exciting", price: "$30", description: "Fun, colorful effects that will keep everyone entertained.", tier: "medium" },
+    graffiti: { name: "Graffiti", price: "$35", description: "Colorful effects that paint the sky like street art.", tier: "medium" },
+    xos: { name: "XO's", price: "$30", description: "Hugs and kisses effects - love-themed fireworks!", tier: "medium" },
+    irishTwins: { name: "Irish Twins", price: "$30", description: "Two effects that follow each other like siblings.", tier: "medium" },
+    starburst: { name: "Starburst", price: "$35", description: "Colorful starburst effects that light up the sky.", tier: "medium" },
+    strongFountain: { name: "World's Strongest Fountain", price: "$25", description: "Powerful fountain that shoots high and lasts long.", tier: "medium" },
 
-    // === 200g CAKES & NOVELTIES ($15-$50) ===
-    crazyExciting: { name: "Crazy Exciting", price: "$30", description: "Fun, colorful effects that will keep everyone entertained.", tier: "novelty", category: "cake" },
-    silverScreen: { name: "Silver Screen", price: "$25", description: "Hollywood-style effects with silver and gold breaks.", tier: "novelty", category: "cake" },
-    blingBling: { name: "Bling Bling", price: "$20", description: "Glittering effects that sparkle like diamonds in the sky.", tier: "novelty", category: "cake" },
-    packAPunch: { name: "Pack a Punch", price: "$22", description: "Small but mighty effects that pack a surprising punch.", tier: "novelty", category: "cake" },
-    starBurned: { name: "Star Burned", price: "$30", description: "Brilliant star effects that burn bright in the night sky.", tier: "novelty", category: "cake" },
-    nineLives: { name: "9 Lives", price: "$8", description: "Fun little effects that keep going and going.", tier: "novelty", category: "novelty" },
-    graffiti: { name: "Graffiti", price: "$35", description: "Colorful effects that paint the sky like street art.", tier: "novelty", category: "cake" },
-    grapesOverVinylard: { name: "Grapes Over Vinylard", price: "$10", description: "Unique purple and green effects inspired by vineyards.", tier: "novelty", category: "novelty" },
-    xos: { name: "XO's", price: "$30", description: "Hugs and kisses effects - love-themed fireworks!", tier: "novelty", category: "cake" },
-    brainDamaged: { name: "Brain Damaged", price: "$20", description: "Crazy, unpredictable effects that will make you go... wait, what?", tier: "novelty", category: "cake" },
-    saturdayMissiles: { name: "300 Shot Saturday Missiles", price: "$18", description: "300 whistling missiles that zoom across the sky!", tier: "novelty", category: "novelty" },
-    irishTwins: { name: "Irish Twins", price: "$30", description: "Two effects that follow each other like siblings.", tier: "novelty", category: "cake" },
-    forOurFlag: { name: "For Our Flag", price: "$12", description: "Patriotic red, white, and blue effects.", tier: "novelty", category: "novelty" },
-    smileAwhile: { name: "Smile Awhile", price: "$10", description: "Effects that will put a smile on everyone's face.", tier: "novelty", category: "novelty" },
-    luckyLeprechaun: { name: "Lucky Leprechaun", price: "$8", description: "Green-themed effects for good luck!", tier: "novelty", category: "novelty" },
-    rainbowSnow: { name: "Rainbow Snow Cone", price: "$20", description: "Colorful effects that look like a rainbow snow cone.", tier: "novelty", category: "cake" },
-    luckOfIrish: { name: "Luck of the Irish", price: "$25", description: "More green effects for those feeling lucky.", tier: "novelty", category: "cake" },
-    cowboyWorld: { name: "Cowboy World", price: "$25", description: "Western-themed effects with a wild west flair.", tier: "novelty", category: "cake" },
-    starburst: { name: "Starburst", price: "$35", description: "Colorful starburst effects that light up the sky.", tier: "novelty", category: "cake" },
-    foolsGold: { name: "Fools Gold", price: "$12", description: "Golden effects that look like treasure in the sky.", tier: "novelty", category: "novelty" },
-    midSummerDream: { name: "Mid Summer Dream", price: "$10", description: "Dreamy effects perfect for warm summer nights.", tier: "novelty", category: "novelty" },
-    gloryDays: { name: "Glory Days", price: "$12", description: "Celebrate the good old days with these classic effects.", tier: "novelty", category: "novelty" },
-    goGirl: { name: "Go Girl", price: "$12", description: "Empowering effects for the ladies!", tier: "novelty", category: "novelty" },
-    atfAmericanHero: { name: "ATF American Hero", price: "$10", description: "Patriotic effects honoring American heroes.", tier: "novelty", category: "novelty" },
-    hunaChick: { name: "Huna Chick", price: "$12", description: "Fun Hawaiian-themed effects.", tier: "novelty", category: "novelty" },
-    heavyHitter: { name: "Heavy Hitter", price: "$15", description: "Packs a punch for its size!", tier: "novelty", category: "novelty" },
-    casino: { name: "Casino", price: "$15", description: "Lucky effects for the gamblers out there.", tier: "novelty", category: "novelty" },
-    hillbillyHotTub: { name: "Hillbilly Hot Tub", price: "$15", description: "Fun, relaxed effects for a laid-back show.", tier: "novelty", category: "novelty" },
-    saturnMissile: { name: "100 Shot Saturn Missile", price: "$10", description: "100 whistling missiles in one tube!", tier: "novelty", category: "novelty" },
-    rotoRoosters: { name: "Roto Roosters", price: "$15", description: "Spinning effects that fly in circles.", tier: "novelty", category: "novelty" },
-    smokeSky: { name: "Smoke Sky", price: "$15", description: "Colorful smoke clouds for daytime fun.", tier: "novelty", category: "novelty" },
-    smokeTubes: { name: "Smoke Tubes", price: "$15", description: "Simple tubes that release colorful smoke.", tier: "novelty", category: "novelty" },
-    tadPoles: { name: "Tad Poles", price: "$15", description: "Small jumping effects that hop like tadpoles.", tier: "novelty", category: "novelty" },
-    largeSmokeBombs: { name: "Large Smoke Bombs", price: "$5.50", description: "Big colorful smoke clouds for daytime fun.", tier: "novelty", category: "novelty" },
-    lightningRound: { name: "Lightning Round", price: "$4", description: "Quick, bright flashes like lightning bolts.", tier: "novelty", category: "novelty" },
-    mamasParachutes: { name: "Mamma's Parachutes", price: "$4", description: "Floating parachutes with colorful lights.", tier: "novelty", category: "novelty" },
-    gardenSpring: { name: "Garden in Spring", price: "$6", description: "Colorful effects that look like flowers blooming.", tier: "novelty", category: "novelty" },
-    dessertNight: { name: "Dessert at Night", price: "$6", description: "Sweet effects perfect for ending the night.", tier: "novelty", category: "novelty" },
-    strongFountain: { name: "World's Strongest Fountain", price: "$25", description: "Powerful fountain that shoots high and lasts long.", tier: "novelty", category: "novelty" }
+    // === LOWEST PRICED ($4-$30) ===
+    silverScreen: { name: "Silver Screen", price: "$25", description: "Hollywood-style effects with silver and gold breaks.", tier: "low" },
+    blingBling: { name: "Bling Bling", price: "$20", description: "Glittering effects that sparkle like diamonds in the sky.", tier: "low" },
+    packAPunch: { name: "Pack a Punch", price: "$22", description: "Small but mighty effects that pack a surprising punch.", tier: "low" },
+    starBurned: { name: "Star Burned", price: "$30", description: "Brilliant star effects that burn bright in the night sky.", tier: "low" },
+    nineLives: { name: "9 Lives", price: "$8", description: "Fun little effects that keep going and going.", tier: "low" },
+    grapesOverVinylard: { name: "Grapes Over Vinylard", price: "$10", description: "Unique purple and green effects inspired by vineyards.", tier: "low" },
+    brainDamaged: { name: "Brain Damaged", price: "$20", description: "Crazy, unpredictable effects that will make you go... wait, what?", tier: "low" },
+    saturdayMissiles: { name: "300 Shot Saturday Missiles", price: "$18", description: "300 whistling missiles that zoom across the sky!", tier: "low" },
+    forOurFlag: { name: "For Our Flag", price: "$12", description: "Patriotic red, white, and blue effects.", tier: "low" },
+    smileAwhile: { name: "Smile Awhile", price: "$10", description: "Effects that will put a smile on everyone's face.", tier: "low" },
+    luckyLeprechaun: { name: "Lucky Leprechaun", price: "$8", description: "Green-themed effects for good luck!", tier: "low" },
+    rainbowSnow: { name: "Rainbow Snow Cone", price: "$20", description: "Colorful effects that look like a rainbow snow cone.", tier: "low" },
+    luckOfIrish: { name: "Luck of the Irish", price: "$25", description: "More green effects for those feeling lucky.", tier: "low" },
+    cowboyWorld: { name: "Cowboy World", price: "$25", description: "Western-themed effects with a wild west flair.", tier: "low" },
+    foolsGold: { name: "Fools Gold", price: "$12", description: "Golden effects that look like treasure in the sky.", tier: "low" },
+    midSummerDream: { name: "Mid Summer Dream", price: "$10", description: "Dreamy effects perfect for warm summer nights.", tier: "low" },
+    gloryDays: { name: "Glory Days", price: "$12", description: "Celebrate the good old days with these classic effects.", tier: "low" },
+    goGirl: { name: "Go Girl", price: "$12", description: "Empowering effects for the ladies!", tier: "low" },
+    atfAmericanHero: { name: "ATF American Hero", price: "$10", description: "Patriotic effects honoring American heroes.", tier: "low" },
+    hunaChick: { name: "Huna Chick", price: "$12", description: "Fun Hawaiian-themed effects.", tier: "low" },
+    heavyHitter: { name: "Heavy Hitter", price: "$15", description: "Packs a punch for its size!", tier: "low" },
+    casino: { name: "Casino", price: "$15", description: "Lucky effects for the gamblers out there.", tier: "low" },
+    hillbillyHotTub: { name: "Hillbilly Hot Tub", price: "$15", description: "Fun, relaxed effects for a laid-back show.", tier: "low" },
+    saturnMissile: { name: "100 Shot Saturn Missile", price: "$10", description: "100 whistling missiles in one tube!", tier: "low" },
+    rotoRoosters: { name: "Roto Roosters", price: "$15", description: "Spinning effects that fly in circles.", tier: "low" },
+    smokeSky: { name: "Smoke Sky", price: "$15", description: "Colorful smoke clouds for daytime fun.", tier: "low" },
+    smokeTubes: { name: "Smoke Tubes", price: "$15", description: "Simple tubes that release colorful smoke.", tier: "low" },
+    tadPoles: { name: "Tad Poles", price: "$15", description: "Small jumping effects that hop like tadpoles.", tier: "low" },
+    largeSmokeBombs: { name: "Large Smoke Bombs", price: "$5.50", description: "Big colorful smoke clouds for daytime fun.", tier: "low" },
+    lightningRound: { name: "Lightning Round", price: "$4", description: "Quick, bright flashes like lightning bolts.", tier: "low" },
+    mamasParachutes: { name: "Mamma's Parachutes", price: "$4", description: "Floating parachutes with colorful lights.", tier: "low" },
+    gardenSpring: { name: "Garden in Spring", price: "$6", description: "Colorful effects that look like flowers blooming.", tier: "low" },
+    dessertNight: { name: "Dessert at Night", price: "$6", description: "Sweet effects perfect for ending the night.", tier: "low" }
 };
 
 // ============================================
-// PREMIUM PRODUCT LISTS
+// PRODUCT CATEGORIES BY TIER
 // ============================================
-const premiumProducts = [
-    products.mickalangelos,
-    products.fireOverWater,
-    products.amazingBallet,
-    products.pureVenom,
-    products.growler,
-    products.avengersCake,
-    products.badReputation,
-    products.excalibur,
-    products.gorilla
-];
-
-const midRangeProducts = [
-    products.rainMaker,
-    products.offTheHook,
-    products.snakeCharmer,
-    products.merlin,
-    products.avenger,
-    products.footballMania,
-    products.kingArthur,
-    products.ladiesNight
-];
-
-const noveltyProducts = [
-    products.crazyExciting,
-    products.silverScreen,
-    products.blingBling,
-    products.packAPunch,
-    products.starBurned,
-    products.nineLives,
-    products.graffiti,
-    products.grapesOverVinylard,
-    products.xos,
-    products.brainDamaged,
-    products.saturdayMissiles,
-    products.irishTwins,
-    products.forOurFlag,
-    products.smileAwhile,
-    products.luckyLeprechaun,
-    products.rainbowSnow,
-    products.luckOfIrish,
-    products.cowboyWorld,
-    products.starburst,
-    products.foolsGold,
-    products.midSummerDream,
-    products.gloryDays,
-    products.goGirl,
-    products.atfAmericanHero,
-    products.hunaChick,
-    products.heavyHitter,
-    products.casino,
-    products.hillbillyHotTub,
-    products.saturnMissile,
-    products.rotoRoosters,
-    products.smokeSky,
-    products.smokeTubes,
-    products.tadPoles,
-    products.largeSmokeBombs,
-    products.lightningRound,
-    products.mamasParachutes,
-    products.gardenSpring,
-    products.dessertNight,
-    products.strongFountain
-];
+const lowPriced = Object.values(products).filter(p => p.tier === "low");
+const mediumPriced = Object.values(products).filter(p => p.tier === "medium");
+const highPriced = Object.values(products).filter(p => p.tier === "high");
 
 // ============================================
-// SHOPPING LIST FUNCTION
+// GET PRODUCTS BY PERSONALITY LEVEL
 // ============================================
-function getShoppingList(budgetKey, audienceKey, primaryPersonalityKey) {
-    let tier = "small";
-    if (budgetKey === "under50") tier = "small";
-    else if (budgetKey === "50to100") tier = "medium";
-    else if (budgetKey === "100to200") tier = "large";
-    else if (budgetKey === "200to500") tier = "premium";
-    else if (budgetKey === "space") tier = "ultimate";
+function getProductsByPersonality(level, budgetKey) {
+    // First filter by budget if needed
+    let budgetLimit = Infinity;
+    if (budgetKey === "under50") budgetLimit = 50;
+    else if (budgetKey === "50to100") budgetLimit = 100;
+    else if (budgetKey === "100to200") budgetLimit = 200;
+    else if (budgetKey === "200to500") budgetLimit = 500;
+    // "space" has no limit
 
-    let ageGroup = "adult";
-    if (audienceKey === "kids" || audienceKey === "dog") ageGroup = "kids";
-    else if (audienceKey === "family") ageGroup = "family";
-    else if (audienceKey === "bbq") ageGroup = "party";
-    else if (audienceKey === "adults") ageGroup = "adult";
+    // Filter all products by budget first
+    const allProducts = Object.values(products);
+    const budgetFiltered = allProducts.filter(p => {
+        const price = parseFloat(p.price.replace('$', ''));
+        return price <= budgetLimit;
+    });
 
-    const premiumPersonalities = ["legend", "chaos", "finale", "hollywood"];
-    const isPremiumPersonality = premiumPersonalities.includes(primaryPersonalityKey);
+    // Now select based on personality level
+    let selected = [];
+    const lowAvailable = budgetFiltered.filter(p => p.tier === "low");
+    const mediumAvailable = budgetFiltered.filter(p => p.tier === "medium");
+    const highAvailable = budgetFiltered.filter(p => p.tier === "high");
 
-    // --- PREMIUM PERSONALITY + HIGH BUDGET = ALL PREMIUM PRODUCTS ---
-    if (isPremiumPersonality && (tier === "large" || tier === "premium" || tier === "ultimate")) {
-        let selected = [...premiumProducts];
-        
-        const midToAdd = midRangeProducts.filter(p => !selected.some(s => s.name === p.name));
-        const shuffledMid = [...midToAdd].sort(() => Math.random() - 0.5);
-        for (let i = 0; i < Math.min(3, shuffledMid.length); i++) {
-            selected.push(shuffledMid[i]);
+    // Shuffle helper
+    const shuffle = (arr) => {
+        const shuffled = [...arr];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
         }
-        
-        const noveltyToAdd = noveltyProducts.filter(p => !selected.some(s => s.name === p.name));
-        const shuffledNovelty = [...noveltyToAdd].sort(() => Math.random() - 0.5);
-        for (let i = 0; i < Math.min(2, shuffledNovelty.length); i++) {
-            selected.push(shuffledNovelty[i]);
-        }
-        
-        const uniqueSelected = [];
-        const seenNames = new Set();
-        for (const item of selected) {
-            if (!seenNames.has(item.name)) {
-                seenNames.add(item.name);
-                uniqueSelected.push(item);
-            }
-        }
-        
-        const premiumItems = uniqueSelected.filter(p => p.tier === "premium");
-        const nonPremiumItems = uniqueSelected.filter(p => p.tier !== "premium");
-        premiumItems.sort((a, b) => parseFloat(b.price.replace('$', '')) - parseFloat(a.price.replace('$', '')));
-        
-        const sortedList = [...premiumItems, ...nonPremiumItems];
-        
-        let itemCount = tier === "large" ? 6 : tier === "premium" ? 7 : 8;
-        return sortedList.slice(0, Math.min(itemCount, sortedList.length));
+        return shuffled;
+    };
+
+    // Determine how many items total based on budget
+    let totalItems = 4;
+    if (budgetKey === "under50") totalItems = 4;
+    else if (budgetKey === "50to100") totalItems = 5;
+    else if (budgetKey === "100to200") totalItems = 6;
+    else if (budgetKey === "200to500") totalItems = 7;
+    else if (budgetKey === "space") totalItems = 8;
+
+    // Personality levels - define what percentage of each tier
+    let lowPercent = 0;
+    let mediumPercent = 0;
+    let highPercent = 0;
+
+    switch(level) {
+        case "kids":
+            lowPercent = 1.0;
+            mediumPercent = 0;
+            highPercent = 0;
+            break;
+        case "mid":
+            lowPercent = 0.6;
+            mediumPercent = 0.4;
+            highPercent = 0;
+            break;
+        case "high":
+            lowPercent = 0.3;
+            mediumPercent = 0.4;
+            highPercent = 0.3;
+            break;
+        case "premium":
+            lowPercent = 0.2;
+            mediumPercent = 0.3;
+            highPercent = 0.5;
+            break;
+        case "legend":
+            lowPercent = 0.1;
+            mediumPercent = 0.3;
+            highPercent = 0.6;
+            break;
+        default:
+            lowPercent = 0.5;
+            mediumPercent = 0.3;
+            highPercent = 0.2;
     }
 
-    // --- NORMAL LOGIC ---
-    let availableProducts = [];
-    if (ageGroup === "kids") {
-        availableProducts = noveltyProducts.filter(p => parseFloat(p.price.replace('$', '')) <= 30);
-    } else if (ageGroup === "family") {
-        availableProducts = noveltyProducts.filter(p => parseFloat(p.price.replace('$', '')) <= 35);
-        availableProducts = [...availableProducts, ...midRangeProducts.slice(0, 4)];
-        if (tier === "large" || tier === "premium" || tier === "ultimate") {
-            availableProducts = [...availableProducts, ...premiumProducts.slice(0, 4)];
-        }
-    } else {
-        availableProducts = [...noveltyProducts, ...midRangeProducts, ...premiumProducts];
-    }
+    // Special case: if budget is small and there aren't enough high/medium items, adjust
+    let lowCount = Math.round(totalItems * lowPercent);
+    let mediumCount = Math.round(totalItems * mediumPercent);
+    let highCount = Math.round(totalItems * highPercent);
+
+    // Ensure we don't exceed available products
+    lowCount = Math.min(lowCount, lowAvailable.length);
+    mediumCount = Math.min(mediumCount, mediumAvailable.length);
+    highCount = Math.min(highCount, highAvailable.length);
+
+    // If we don't have enough of a tier, redistribute
+    let totalNeeded = totalItems;
+    let currentTotal = lowCount + mediumCount + highCount;
     
-    let tieredProducts = [];
-    if (tier === "small") {
-        tieredProducts = availableProducts.filter(p => parseFloat(p.price.replace('$', '')) <= 50);
-    } else if (tier === "medium") {
-        tieredProducts = availableProducts.filter(p => parseFloat(p.price.replace('$', '')) <= 100);
-    } else if (tier === "large") {
-        tieredProducts = availableProducts.filter(p => parseFloat(p.price.replace('$', '')) <= 200);
-    } else {
-        tieredProducts = [...availableProducts];
-    }
-    
-    const uniqueItems = [];
-    const seen = new Set();
-    for (const item of tieredProducts) {
-        if (!seen.has(item.name)) {
-            seen.add(item.name);
-            uniqueItems.push(item);
+    // Add extras to the most available tier
+    if (currentTotal < totalNeeded) {
+        const remaining = totalNeeded - currentTotal;
+        const availableExtras = [
+            ...lowAvailable.slice(lowCount),
+            ...mediumAvailable.slice(mediumCount),
+            ...highAvailable.slice(highCount)
+        ];
+        const shuffledExtras = shuffle(availableExtras);
+        for (let i = 0; i < Math.min(remaining, shuffledExtras.length); i++) {
+            const extra = shuffledExtras[i];
+            if (extra.tier === "low") lowCount++;
+            else if (extra.tier === "medium") mediumCount++;
+            else if (extra.tier === "high") highCount++;
         }
     }
-    
-    if (tier === "premium" || tier === "ultimate") {
-        uniqueItems.sort((a, b) => parseFloat(b.price.replace('$', '')) - parseFloat(a.price.replace('$', '')));
-    } else {
-        uniqueItems.sort(() => Math.random() - 0.5);
+
+    // Select items
+    const shuffledLow = shuffle(lowAvailable);
+    const shuffledMedium = shuffle(mediumAvailable);
+    const shuffledHigh = shuffle(highAvailable);
+
+    // Add selected items
+    for (let i = 0; i < lowCount && i < shuffledLow.length; i++) {
+        selected.push(shuffledLow[i]);
     }
-    
-    let itemCount = tier === "small" ? 4 : tier === "medium" ? 5 : tier === "large" ? 6 : tier === "premium" ? 7 : 8;
-    return uniqueItems.slice(0, Math.min(itemCount, uniqueItems.length));
+    for (let i = 0; i < mediumCount && i < shuffledMedium.length; i++) {
+        selected.push(shuffledMedium[i]);
+    }
+    for (let i = 0; i < highCount && i < shuffledHigh.length; i++) {
+        selected.push(shuffledHigh[i]);
+    }
+
+    // If we still don't have enough, add more from any tier
+    if (selected.length < totalItems) {
+        const allRemaining = budgetFiltered.filter(p => !selected.includes(p));
+        const shuffledRemaining = shuffle(allRemaining);
+        while (selected.length < totalItems && shuffledRemaining.length > 0) {
+            selected.push(shuffledRemaining.pop());
+        }
+    }
+
+    // Sort by price (high to low) for better display
+    selected.sort((a, b) => parseFloat(b.price.replace('$', '')) - parseFloat(a.price.replace('$', '')));
+
+    return selected;
 }
 
 // ============================================
@@ -604,21 +496,18 @@ const questions = [
 ];
 
 // ============================================
-// QUIZ LOGIC - FIXED HOMEPAGE ISSUE
+// QUIZ LOGIC
 // ============================================
 let answers = {};
 let currentQuestion = 0;
-let quizStarted = false;
 
 function startQuiz() {
-    quizStarted = true;
     answers = {};
     currentQuestion = 0;
     showQuestion();
 }
 
 function showHomepage() {
-    // Show the homepage with the Start button
     const content = document.getElementById("content");
     content.innerHTML = `
         <img src="https://raw.githubusercontent.com/tcullen-tc/sparky-firework-finder/main/Sparky%20image%20for%20github.png" alt="Sparky" class="sparky-image">
@@ -726,7 +615,6 @@ function showPocketChangeGuide() {
 }
 
 function resetToHome() {
-    quizStarted = false;
     answers = {};
     currentQuestion = 0;
     showHomepage();
@@ -747,10 +635,9 @@ function showRecommendation() {
     const primary = ranked[0];
     
     const budgetKey = answers.budget?.budgetKey || "under50";
-    const audienceKey = answers.audience?.audienceKey || "family";
-    const personalityKey = primary.key;
+    const personalityLevel = primary.data.level || "mid";
     
-    const shoppingItems = getShoppingList(budgetKey, audienceKey, personalityKey);
+    const shoppingItems = getProductsByPersonality(personalityLevel, budgetKey);
     
     const joke = salesmanJokes[Math.floor(Math.random() * salesmanJokes.length)];
     const safetyTip = safetyTips[Math.floor(Math.random() * safetyTips.length)];
