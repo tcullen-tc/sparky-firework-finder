@@ -33,6 +33,8 @@ ul { list-style-position:inside; }
 li { margin:10px 0; }
 .salesman-humor { background:#2a1f3a; border-left:5px solid #facc15; padding:14px 18px; border-radius:1rem; margin:16px 0; font-style:italic; color:#d4b8ff; }
 .price-tag { color:#4ade80; font-weight:bold; }
+.sparky-image { max-width:200px; margin:10px auto; display:block; border-radius:50%; border:3px solid #facc15; }
+.welcome-text { font-size:1.2rem; color:#e2e8f0; margin:16px 0; }
 @media (max-width:550px) { .card { padding:18px; } h1 { font-size:1.6rem; } h2 { font-size:1.3rem; } button { padding:12px; font-size:0.9rem; } }
 </style>
 </head>
@@ -40,9 +42,19 @@ li { margin:10px 0; }
 <div class="card" id="appCard">
     <h1>🎆 Sparky Firework Finder</h1>
     <div id="content">
-        <p style="margin:16px 0;">Not sure what fireworks to buy?</p>
-        <p>Answer a few quick questions and get a <strong>complete shopping list</strong> of exactly what to buy! ✨</p>
-        <button class="quiz-btn" onclick="startQuiz()">🔥 Start Here!! 🔥</button>
+        <!-- SPARKY IMAGE -->
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Sparky" class="sparky-image" style="display:none;" id="sparkyImg">
+        
+        <p class="welcome-text">👋 Welcome to Sparky's Firework Finder!</p>
+        <p style="margin:16px 0;">Not sure what fireworks to buy? Let Sparky help you find the perfect fireworks for your show!</p>
+        
+        <!-- CLEARER BUTTON WITH INSTRUCTIONS -->
+        <div style="background:#1a2332; padding:16px; border-radius:1rem; margin:20px 0; border-left:4px solid #facc15;">
+            <p style="color:#94a3b8; font-size:0.9rem; margin-bottom:8px;">👇 <strong>START HERE</strong> 👇</p>
+            <button class="quiz-btn" onclick="startQuiz()" style="font-size:1.2rem; padding:18px;">🔥 Answer 9 Questions & Get Your Shopping List 🔥</button>
+            <p style="color:#94a3b8; font-size:0.8rem; margin-top:8px;">It only takes 2 minutes! We'll match you to the perfect fireworks.</p>
+        </div>
+        
         <div class="pocket-change-card" style="margin-top:24px;">
             <h3>🪙 ONLY GOT A FEW BUCKS? 🪙</h3>
             <p style="margin:8px 0;"><strong>$5 - $10 budget?</strong> You can still have a blast!</p>
@@ -120,7 +132,354 @@ const personalities = {
 };
 
 // ============================================
-// YOUR ACTUAL INVENTORY SHOPPING LISTS
+// YOUR ACTUAL INVENTORY WITH TIERS
+// ============================================
+const products = {
+    // === PREMIUM 500g CAKES ($100+) ===
+    mickalangelos: { 
+        name: "Mickalangelo's", 
+        price: "$150", 
+        description: "Premium 500g cake with artistic color effects and beautiful displays.",
+        tiers: ["large", "premium", "ultimate"]
+    },
+    fireOverWater: { 
+        name: "Fire Over Water", 
+        price: "$130", 
+        description: "Unique 500g cake with effects that appear to dance over the ground.",
+        tiers: ["large", "premium", "ultimate"]
+    },
+    amazingBallet: { 
+        name: "Amazing Ballet", 
+        price: "$130", 
+        description: "Graceful aerial effects that dance across the sky like a ballet.",
+        tiers: ["large", "premium", "ultimate"]
+    },
+    pureVenom: { 
+        name: "Pure Venom", 
+        price: "$120", 
+        description: "Powerful 500g cake with intense color and crackling effects.",
+        tiers: ["large", "premium", "ultimate"]
+    },
+    growler: { 
+        name: "Growler", 
+        price: "$120", 
+        description: "Loud, aggressive effects that will make the ground shake.",
+        tiers: ["large", "premium", "ultimate"]
+    },
+    avengersCake: { 
+        name: "Avengers", 
+        price: "$115", 
+        description: "Superhero-themed effects with powerful breaks and vibrant colors.",
+        tiers: ["large", "premium", "ultimate"]
+    },
+    badReputation: { 
+        name: "Bad Reputation", 
+        price: "$110", 
+        description: "Rowdy effects for those who want to make some noise.",
+        tiers: ["large", "premium", "ultimate"]
+    },
+    excalibur: { 
+        name: "Excalibur Artillery Shells", 
+        price: "$110", 
+        description: "24 powerful canister shells with massive aerial booms and colorful breaks. A legendary top seller!",
+        tiers: ["medium", "large", "premium", "ultimate"]
+    },
+    gorilla: { 
+        name: "Gorilla Cake", 
+        price: "$110", 
+        description: "40 powerful shots that fan out across the sky with color and loud effects for a full minute.",
+        tiers: ["large", "premium", "ultimate"]
+    },
+    rainMaker: { 
+        name: "Rain Maker", 
+        price: "$90", 
+        description: "Colorful effects that rain down like a sparkling waterfall.",
+        tiers: ["medium", "large", "premium", "ultimate"]
+    },
+    offTheHook: { 
+        name: "Off the Hook", 
+        price: "$90", 
+        description: "Wild effects that are absolutely off the hook!",
+        tiers: ["medium", "large", "premium", "ultimate"]
+    },
+
+    // === MID-RANGE 500g CAKES ($50-$100) ===
+    snakeCharmer: { 
+        name: "Snake Charmer", 
+        price: "$85", 
+        description: "60-shot 500g cake with mesmerizing red, green, and blue crackle tails and willow effects.",
+        tiers: ["medium", "large", "premium", "ultimate"]
+    },
+    merlin: { 
+        name: "Merlin", 
+        price: "$70", 
+        description: "30-shot magical themed cake with crackling stars and multicolored effects.",
+        tiers: ["medium", "large", "premium", "ultimate"]
+    },
+    avenger: { 
+        name: "5\" Laser Avenger 60 Gram", 
+        price: "$70", 
+        description: "Premium 60g cake with 5-inch shell effects. Powerful and colorful display.",
+        tiers: ["medium", "large", "premium", "ultimate"]
+    },
+    footballMania: { 
+        name: "Football Mania", 
+        price: "$70", 
+        description: "Cheer on your team with these energetic effects.",
+        tiers: ["medium", "large", "premium", "ultimate"]
+    },
+    kingArthur: { 
+        name: "King Arthur", 
+        price: "$60", 
+        description: "Classic artillery shell kit with powerful breaks and colorful effects.",
+        tiers: ["medium", "large", "premium", "ultimate"]
+    },
+    ladiesNight: { 
+        name: "Ladies Night", 
+        price: "$60", 
+        description: "Colorful effects perfect for a girls' night out celebration.",
+        tiers: ["medium", "large", "premium", "ultimate"]
+    },
+
+    // === 200g CAKES & NOVELTIES ($15-$50) ===
+    crazyExciting: { 
+        name: "Crazy Exciting", 
+        price: "$30", 
+        description: "Fun, colorful effects that will keep everyone entertained.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    silverScreen: { 
+        name: "Silver Screen", 
+        price: "$25", 
+        description: "Hollywood-style effects with silver and gold breaks.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    blingBling: { 
+        name: "Bling Bling", 
+        price: "$20", 
+        description: "Glittering effects that sparkle like diamonds in the sky.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    packAPunch: { 
+        name: "Pack a Punch", 
+        price: "$22", 
+        description: "Small but mighty effects that pack a surprising punch.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    starBurned: { 
+        name: "Star Burned", 
+        price: "$30", 
+        description: "Brilliant star effects that burn bright in the night sky.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    nineLives: { 
+        name: "9 Lives", 
+        price: "$8", 
+        description: "Fun little effects that keep going and going.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    graffiti: { 
+        name: "Graffiti", 
+        price: "$35", 
+        description: "Colorful effects that paint the sky like street art.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    grapesOverVinylard: { 
+        name: "Grapes Over Vinylard", 
+        price: "$10", 
+        description: "Unique purple and green effects inspired by vineyards.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    xos: { 
+        name: "XO's", 
+        price: "$30", 
+        description: "Hugs and kisses effects - love-themed fireworks!",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    brainDamaged: { 
+        name: "Brain Damaged", 
+        price: "$20", 
+        description: "Crazy, unpredictable effects that will make you go... wait, what?",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    saturdayMissiles: { 
+        name: "300 Shot Saturday Missiles", 
+        price: "$18", 
+        description: "300 whistling missiles that zoom across the sky!",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    irishTwins: { 
+        name: "Irish Twins", 
+        price: "$30", 
+        description: "Two effects that follow each other like siblings.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    forOurFlag: { 
+        name: "For Our Flag", 
+        price: "$12", 
+        description: "Patriotic red, white, and blue effects.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    smileAwhile: { 
+        name: "Smile Awhile", 
+        price: "$10", 
+        description: "Effects that will put a smile on everyone's face.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    luckyLeprechaun: { 
+        name: "Lucky Leprechaun", 
+        price: "$8", 
+        description: "Green-themed effects for good luck!",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    rainbowSnow: { 
+        name: "Rainbow Snow Cone", 
+        price: "$20", 
+        description: "Colorful effects that look like a rainbow snow cone.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    luckOfIrish: { 
+        name: "Luck of the Irish", 
+        price: "$25", 
+        description: "More green effects for those feeling lucky.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    cowboyWorld: { 
+        name: "Cowboy World", 
+        price: "$25", 
+        description: "Western-themed effects with a wild west flair.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    starburst: { 
+        name: "Starburst", 
+        price: "$35", 
+        description: "Colorful starburst effects that light up the sky.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    foolsGold: { 
+        name: "Fools Gold", 
+        price: "$12", 
+        description: "Golden effects that look like treasure in the sky.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    midSummerDream: { 
+        name: "Mid Summer Dream", 
+        price: "$10", 
+        description: "Dreamy effects perfect for warm summer nights.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    gloryDays: { 
+        name: "Glory Days", 
+        price: "$12", 
+        description: "Celebrate the good old days with these classic effects.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    goGirl: { 
+        name: "Go Girl", 
+        price: "$12", 
+        description: "Empowering effects for the ladies!",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    atfAmericanHero: { 
+        name: "ATF American Hero", 
+        price: "$10", 
+        description: "Patriotic effects honoring American heroes.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    hunaChick: { 
+        name: "Huna Chick", 
+        price: "$12", 
+        description: "Fun Hawaiian-themed effects.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    heavyHitter: { 
+        name: "Heavy Hitter", 
+        price: "$15", 
+        description: "Packs a punch for its size!",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    casino: { 
+        name: "Casino", 
+        price: "$15", 
+        description: "Lucky effects for the gamblers out there.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    hillbillyHotTub: { 
+        name: "Hillbilly Hot Tub", 
+        price: "$15", 
+        description: "Fun, relaxed effects for a laid-back show.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    saturnMissile: { 
+        name: "100 Shot Saturn Missile", 
+        price: "$10", 
+        description: "100 whistling missiles in one tube!",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    rotoRoosters: { 
+        name: "Roto Roosters", 
+        price: "$15", 
+        description: "Spinning effects that fly in circles.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    smokeSky: { 
+        name: "Smoke Sky", 
+        price: "$15", 
+        description: "Colorful smoke clouds for daytime fun.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    smokeTubes: { 
+        name: "Smoke Tubes", 
+        price: "$15", 
+        description: "Simple tubes that release colorful smoke.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    tadPoles: { 
+        name: "Tad Poles", 
+        price: "$15", 
+        description: "Small jumping effects that hop like tadpoles.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    largeSmokeBombs: { 
+        name: "Large Smoke Bombs", 
+        price: "$5.50", 
+        description: "Big colorful smoke clouds for daytime fun.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    lightningRound: { 
+        name: "Lightning Round", 
+        price: "$4", 
+        description: "Quick, bright flashes like lightning bolts.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    mamasParachutes: { 
+        name: "Mamma's Parachutes", 
+        price: "$4", 
+        description: "Floating parachutes with colorful lights.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    gardenSpring: { 
+        name: "Garden in Spring", 
+        price: "$6", 
+        description: "Colorful effects that look like flowers blooming.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    dessertNight: { 
+        name: "Dessert at Night", 
+        price: "$6", 
+        description: "Sweet effects perfect for ending the night.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    },
+    strongFountain: { 
+        name: "World's Strongest Fountain", 
+        price: "$25", 
+        description: "Powerful fountain that shoots high and lasts long.",
+        tiers: ["small", "medium", "large", "premium", "ultimate"]
+    }
+};
+
+// ============================================
+// SHOPPING LIST FUNCTION WITH DYNAMIC PRICING
 // ============================================
 function getShoppingList(budgetKey, audienceKey) {
     // Determine age group from audience
@@ -139,254 +498,162 @@ function getShoppingList(budgetKey, audienceKey) {
     else if (budgetKey === "space") tier = "ultimate";
 
     // ============================================
-    // YOUR ACTUAL PRODUCTS WITH PRICES
+    // PRODUCT LISTS BY PERSONALITY
     // ============================================
-    const products = {
-        // Aerial Cakes (500g)
-        excalibur: { name: "Excalibur Artillery Shells", price: "$110", description: "24 powerful canister shells with massive aerial booms and colorful breaks. A legendary top seller!" },
-        gorilla: { name: "Gorilla Cake", price: "$110", description: "40 powerful shots that fan out across the sky with color and loud effects for a full minute." },
-        merlin: { name: "Merlin", price: "$70", description: "30-shot magical themed cake with crackling stars and multicolored effects." },
-        snakeCharmer: { name: "Snake Charmer", price: "$85", description: "60-shot 500g cake with mesmerizing red, green, and blue crackle tails and willow effects." },
-        avenger: { name: "5\" Laser Avenger 60 Gram", price: "$70", description: "Premium 60g cake with 5-inch shell effects. Powerful and colorful display." },
-        kingArthur: { name: "King Arthur", price: "$60", description: "Classic artillery shell kit with powerful breaks and colorful effects." },
-        mickalangelos: { name: "Mickalangelo's", price: "$150", description: "Premium 500g cake with artistic color effects and beautiful displays." },
-        fireOverWater: { name: "Fire Over Water", price: "$70", description: "Unique 500g cake with effects that appear to dance over the ground." },
-        amazingBallet: { name: "Amazing Ballet", price: "$130", description: "Graceful aerial effects that dance across the sky like a ballet." },
-        pureVenom: { name: "Pure Venom", price: "$120", description: "Powerful 500g cake with intense color and crackling effects." },
-        growler: { name: "Growler", price: "$120", description: "Loud, aggressive effects that will make the ground shake." },
-        badReputation: { name: "Bad Reputation", price: "$100", description: "Rowdy effects for those who want to make some noise." },
-        rainMaker: { name: "Rain Maker", price: "$90", description: "Colorful effects that rain down like a sparkling waterfall." },
-        avengersCake: { name: "Avengers", price: "$115", description: "Superhero-themed effects with powerful breaks and vibrant colors." },
-        
-        // 200g Cakes & Novelties
-        crazyExciting: { name: "Crazy Exciting", price: "$30", description: "Fun, colorful effects that will keep everyone entertained." },
-        silverScreen: { name: "Silver Screen", price: "$25", description: "Hollywood-style effects with silver and gold breaks." },
-        blingBling: { name: "Bling Bling", price: "$20", description: "Glittering effects that sparkle like diamonds in the sky." },
-        packAPunch: { name: "Pack a Punch", price: "$22", description: "Small but mighty effects that pack a surprising punch." },
-        starBurned: { name: "Star Burned", price: "$30", description: "Brilliant star effects that burn bright in the night sky." },
-        nineLives: { name: "9 Lives", price: "$8", description: "Fun little effects that keep going and going." },
-        graffiti: { name: "Graffiti", price: "$35", description: "Colorful effects that paint the sky like street art." },
-        grapesOverVinylard: { name: "Grapes Over Vinylard", price: "$10", description: "Unique purple and green effects inspired by vineyards." },
-        xos: { name: "XO's", price: "$30", description: "Hugs and kisses effects - love-themed fireworks!" },
-        brainDamaged: { name: "Brain Damaged", price: "$20", description: "Crazy, unpredictable effects that will make you go... wait, what?" },
-        saturdayMissiles: { name: "300 Shot Saturday Missiles", price: "$18", description: "300 whistling missiles that zoom across the sky!" },
-        
-        // Other Cakes
-        ladiesNight: { name: "Ladies Night", price: "$60", description: "Colorful effects perfect for a girls' night out celebration." },
-        footballMania: { name: "Football Mania", price: "$70", description: "Cheer on your team with these energetic effects." },
-        offTheHook: { name: "Off the Hook", price: "$90", description: "Wild effects that are absolutely off the hook!" },
-        irishTwins: { name: "Irish Twins", price: "$30", description: "Two effects that follow each other like siblings." },
-        forOurFlag: { name: "For Our Flag", price: "$12", description: "Patriotic red, white, and blue effects." },
-        smileAwhile: { name: "Smile Awhile", price: "$10", description: "Effects that will put a smile on everyone's face." },
-        luckyLeprechaun: { name: "Lucky Leprechaun", price: "$8", description: "Green-themed effects for good luck!" },
-        rainbowSnow: { name: "Rainbow Snow Cone", price: "$20", description: "Colorful effects that look like a rainbow snow cone." },
-        luckOfIrish: { name: "Luck of the Irish", price: "$25", description: "More green effects for those feeling lucky." },
-        cowboyWorld: { name: "Cowboy World", price: "$25", description: "Western-themed effects with a wild west flair." },
-        starburst: { name: "Starburst", price: "$35", description: "Colorful starburst effects that light up the sky." },
-        foolsGold: { name: "Fools Gold", price: "$12", description: "Golden effects that look like treasure in the sky." },
-        midSummerDream: { name: "Mid Summer Dream", price: "$10", description: "Dreamy effects perfect for warm summer nights." },
-        gloryDays: { name: "Glory Days", price: "$12", description: "Celebrate the good old days with these classic effects." },
-        goGirl: { name: "Go Girl", price: "$12", description: "Empowering effects for the ladies!" },
-        atfAmericanHero: { name: "ATF American Hero", price: "$10", description: "Patriotic effects honoring American heroes." },
-        hunaChick: { name: "Huna Chick", price: "$12", description: "Fun Hawaiian-themed effects." },
-        heavyHitter: { name: "Heavy Hitter", price: "$15", description: "Packs a punch for its size!" },
-        casino: { name: "Casino", price: "$15", description: "Lucky effects for the gamblers out there." },
-        hillbillyHotTub: { name: "Hillbilly Hot Tub", price: "$15", description: "Fun, relaxed effects for a laid-back show." },
-        saturnMissile: { name: "100 Shot Saturn Missile", price: "$10", description: "100 whistling missiles in one tube!" },
-        rotoRoosters: { name: "Roto Roosters", price: "$15", description: "Spinning effects that fly in circles." },
-        smokeSky: { name: "Smoke Sky", price: "$15", description: "Colorful smoke clouds for daytime fun." },
-        smokeTubes: { name: "Smoke Tubes", price: "$15", description: "Simple tubes that release colorful smoke." },
-        tadPoles: { name: "Tad Poles", price: "$15", description: "Small jumping effects that hop like tadpoles." },
-        largeSmokeBombs: { name: "Large Smoke Bombs", price: "$5.50", description: "Big colorful smoke clouds for daytime fun." },
-        lightningRound: { name: "Lightning Round", price: "$4", description: "Quick, bright flashes like lightning bolts." },
-        mamasParachutes: { name: "Mamma's Parachutes", price: "$4", description: "Floating parachutes with colorful lights." },
-        gardenSpring: { name: "Garden in Spring", price: "$6", description: "Colorful effects that look like flowers blooming." },
-        dessertNight: { name: "Dessert at Night", price: "$6", description: "Sweet effects perfect for ending the night." },
-        roosters: { name: "Roto Roosters", price: "$15", description: "Spinning effects that fly in circles." },
-        strongFountain: { name: "World's Strongest Fountain", price: "$25", description: "Powerful fountain that shoots high and lasts long." }
-    };
-
-    // ============================================
-    // SHOPPING LISTS USING YOUR ACTUAL PRODUCTS
-    // ============================================
-    const lists = {
+    const personalityLists = {
         kids: {
-            small: [
-                products.smokeTubes,
-                products.snapPops || { name: "Snap Pops (50-pack)", price: "$5", description: "Fun little poppers for kids" },
-                products.sparklers || { name: "Sparkler Variety Pack", price: "$8", description: "Colorful sparklers perfect for little hands" },
-                products.largeSmokeBombs,
-                products.mamasParachutes
-            ],
-            medium: [
+            // Kid-friendly products - always quiet, colorful, safe
+            allProducts: [
                 products.smokeTubes,
                 products.largeSmokeBombs,
                 products.mamasParachutes,
+                products.gardenSpring,
+                products.dessertNight,
                 products.rainbowSnow,
                 products.nineLives,
-                products.gardenSpring
-            ],
-            large: [
-                products.smokeTubes,
-                products.largeSmokeBombs,
-                products.rainbowSnow,
-                products.crazyExciting,
-                products.starBurned,
-                products.midSummerDream,
-                products.gardenSpring
-            ],
-            premium: [
-                products.smokeTubes,
-                products.rainbowSnow,
-                products.crazyExciting,
-                products.silverScreen,
-                products.blingBling,
-                products.starBurned,
-                products.gardenSpring
-            ],
-            ultimate: [
-                products.smokeTubes,
-                products.rainbowSnow,
-                products.crazyExciting,
-                products.silverScreen,
-                products.blingBling,
-                products.starBurned,
-                products.gardenSpring,
-                products.midSummerDream
-            ]
-        },
-        family: {
-            small: [
-                products.gardenSpring,
+                products.luckyLeprechaun,
+                products.smileAwhile,
+                products.foolsGold,
                 products.midSummerDream,
                 products.gloryDays,
                 products.goGirl,
-                products.largeSmokeBombs
-            ],
-            medium: [
-                products.rainbowSnow,
-                products.luckOfIrish,
-                products.cowboyWorld,
-                products.foolsGold,
+                products.atfAmericanHero,
+                products.hunaChick,
+                products.casino
+            ]
+        },
+        family: {
+            // Family-friendly mix - quiet to medium
+            allProducts: [
                 products.smokeTubes,
-                products.gardenSpring
-            ],
-            large: [
+                products.largeSmokeBombs,
+                products.mamasParachutes,
+                products.gardenSpring,
+                products.dessertNight,
+                products.rainbowSnow,
                 products.crazyExciting,
                 products.silverScreen,
                 products.blingBling,
                 products.starBurned,
-                products.rainbowSnow,
-                products.luckOfIrish,
-                products.smokeTubes
-            ],
-            premium: [
-                products.crazyExciting,
-                products.silverScreen,
-                products.blingBing,
-                products.starBurned,
-                products.rainbowSnow,
-                products.smokeTubes,
-                products.saturdayMissiles
-            ],
-            ultimate: [
-                products.merlin,
+                products.packAPunch,
+                products.saturdayMissiles,
+                products.smokeSky,
+                products.strongFountain,
                 products.snakeCharmer,
-                products.rainbowSnow,
-                products.crazyExciting,
-                products.silverScreen,
-                products.starBurned,
-                products.smokeTubes,
-                products.saturdayMissiles
+                products.merlin
             ]
         },
         party: {
-            small: [
+            // Party crowd - more exciting, crowd pleasers
+            allProducts: [
                 products.saturdayMissiles,
                 products.smokeTubes,
+                products.crazyExciting,
+                products.silverScreen,
+                products.blingBling,
+                products.packAPunch,
+                products.starBurned,
+                products.graffiti,
+                products.xos,
+                products.brainDamaged,
+                products.smokeSky,
+                products.kingArthur,
+                products.avenger,
+                products.merlin,
+                products.snakeCharmer,
+                products.excalibur,
+                products.gorilla,
+                products.rainMaker,
+                products.offTheHook
+            ]
+        },
+        adult: {
+            // Adults - everything goes!
+            allProducts: [
+                // Small items
+                products.smokeTubes,
                 products.largeSmokeBombs,
-                products.mamasParachutes
-            ],
-            medium: [
+                products.mamasParachutes,
                 products.saturdayMissiles,
                 products.crazyExciting,
                 products.silverScreen,
                 products.blingBling,
                 products.packAPunch,
-                products.smokeTubes
-            ],
-            large: [
+                products.starBurned,
+                products.graffiti,
+                products.xos,
+                products.brainDamaged,
+                products.irishTwins,
+                products.rainbowSnow,
+                products.luckOfIrish,
+                products.cowboyWorld,
+                products.starburst,
+                products.foolsGold,
+                products.midSummerDream,
+                products.gloryDays,
+                products.goGirl,
+                products.atfAmericanHero,
+                products.hunaChick,
+                products.heavyHitter,
+                products.casino,
+                products.hillbillyHotTub,
+                products.rotoRoosters,
+                products.smokeSky,
+                products.strongFountain,
+                // Mid-range
                 products.kingArthur,
                 products.avenger,
-                products.crazyExciting,
-                products.silverScreen,
-                products.blingBling,
-                products.saturdayMissiles
-            ],
-            premium: [
-                products.excalibur,
-                products.gorilla,
-                products.kingArthur,
-                products.avenger,
+                products.merlin,
                 products.snakeCharmer,
-                products.saturdayMissiles
-            ],
-            ultimate: [
+                products.footballMania,
+                products.ladiesNight,
+                products.rainMaker,
+                products.offTheHook,
+                // Premium
                 products.excalibur,
                 products.gorilla,
-                products.mickalangelos,
-                products.fireOverWater,
-                products.amazingBallet,
-                products.snakeCharmer,
-                products.saturdayMissiles
-            ]
-        },
-        adult: {
-            small: [
-                products.saturdayMissiles,
-                products.smokeTubes,
-                products.largeSmokeBombs,
-                products.mamasParachutes
-            ],
-            medium: [
-                products.kingArthur,
-                products.avenger,
-                products.crazyExciting,
-                products.silverScreen,
-                products.saturdayMissiles
-            ],
-            large: [
-                products.excalibur,
-                products.gorilla,
-                products.kingArthur,
-                products.avenger,
-                products.snakeCharmer,
-                products.saturdayMissiles
-            ],
-            premium: [
-                products.excalibur,
-                products.gorilla,
-                products.mickalangelos,
-                products.fireOverWater,
-                products.amazingBallet,
-                products.snakeCharmer,
-                products.saturdayMissiles
-            ],
-            ultimate: [
-                products.excalibur,
-                products.gorilla,
-                products.mickalangelos,
-                products.fireOverWater,
-                products.amazingBallet,
+                products.badReputation,
+                products.avengersCake,
                 products.pureVenom,
                 products.growler,
-                products.badReputation,
-                products.rainMaker
+                products.amazingBallet,
+                products.fireOverWater,
+                products.mickalangelos
             ]
         }
     };
 
-    return lists[ageGroup]?.[tier] || lists.adult.small;
+    // Get the product list for this age group
+    const productList = personalityLists[ageGroup]?.allProducts || personalityLists.adult.allProducts;
+
+    // Filter products by budget tier
+    const filteredProducts = productList.filter(product => {
+        return product.tiers.includes(tier);
+    });
+
+    // Determine how many items to show based on budget
+    let itemCount = 4;
+    if (tier === "small") itemCount = 4;
+    else if (tier === "medium") itemCount = 5;
+    else if (tier === "large") itemCount = 6;
+    else if (tier === "premium") itemCount = 7;
+    else if (tier === "ultimate") itemCount = 8;
+
+    // Select the first X items (or all if fewer available)
+    const selectedItems = filteredProducts.slice(0, Math.min(itemCount, filteredProducts.length));
+
+    // If we don't have enough items, add some generic ones
+    if (selectedItems.length < 4) {
+        const genericItems = [
+            { name: "Sparkler Variety Pack", price: "$8", description: "Colorful sparklers perfect for everyone!", tiers: ["small", "medium", "large", "premium", "ultimate"] },
+            { name: "Snap Pop Mega Pack", price: "$5", description: "Hours of popping fun for the whole family!", tiers: ["small", "medium", "large", "premium", "ultimate"] }
+        ];
+        while (selectedItems.length < 4) {
+            selectedItems.push(genericItems[selectedItems.length % genericItems.length]);
+        }
+    }
+
+    return selectedItems;
 }
 
 // ============================================
